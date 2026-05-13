@@ -1,0 +1,509 @@
+/* Classic single-page portfolio (GitHub Pages / Ceevee-style) */
+
+.portfolio {
+  --bg: #f4f4f2;
+  --bg-alt: #ebeae6;
+  --ink: #1a1a1a;
+  --muted: #5c5c56;
+  --line: #d6d4cf;
+  --accent: #0f766e;
+  --accent-hover: #0d9488;
+  --header: #151515;
+  --card: #ffffff;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.portfolio-serif {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.portfolio a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.portfolio a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.portfolio main {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* —— Top bar —— */
+.portfolio-header {
+  background: var(--header);
+  color: #f5f5f4;
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.portfolio-header h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.portfolio-header .tagline {
+  font-size: 1rem;
+  color: #a8a29e;
+  font-weight: 400;
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* —— Sticky nav —— */
+.portfolio-nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(21, 21, 21, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #292524;
+}
+
+.portfolio-nav {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  padding: 0.65rem 1rem;
+}
+
+.portfolio-nav button {
+  background: none;
+  border: none;
+  color: #a8a29e;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  padding: 0.35rem 0;
+  font-family: inherit;
+}
+
+.portfolio-nav button:hover,
+.portfolio-nav button:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.portfolio-nav button.is-active {
+  color: #5eead4;
+}
+
+/* —— Sections —— */
+.portfolio-main {
+  max-width: min(900px, 100%);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+  box-sizing: border-box;
+}
+
+.portfolio-section {
+  padding-top: 3.5rem;
+  scroll-margin-top: 3rem;
+}
+
+.portfolio-kicker {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-section h2.portfolio-h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  line-height: 1.25;
+}
+
+.portfolio-section p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  font-size: 1.02rem;
+}
+
+/* —— About —— */
+.profile-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.profile-card p {
+  margin-bottom: 0.75rem;
+}
+
+.profile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-list li {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+
+.profile-list li:last-child {
+  border-bottom: none;
+}
+
+.profile-list strong {
+  color: var(--ink);
+  min-width: 5rem;
+}
+
+.profile-list span,
+.profile-list a {
+  white-space: pre-line;
+}
+
+.skill {
+  margin-bottom: 1rem;
+}
+
+.skill-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.skill-top span:last-child {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-bar {
+  height: 6px;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #14b8a6);
+  border-radius: 3px;
+  transition: width 1s ease-out;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none !important;
+  border: none;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink) !important;
+  border: 2px solid var(--ink);
+}
+
+.btn-outline:hover {
+  background: var(--ink);
+  color: #fff !important;
+}
+
+/* —— Resume timeline —— */
+.timeline {
+  margin-top: 1rem;
+}
+
+.timeline h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.15rem;
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 1.75rem;
+  border-left: 2px solid var(--line);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0.35rem;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.timeline-item h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+
+.timeline-item .meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item .org {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* —— Projects —— */
+.project-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 600px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Text-only project tiles (optional; primary work strip uses visual-project-card) */
+.portfolio-prose-tile {
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.1rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+  color: inherit;
+}
+
+.portfolio-prose-tile:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(15, 118, 110, 0.12);
+}
+
+.portfolio-prose-tile h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-prose-tile p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* —— Activities —— */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.activity-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.1rem 1.25rem;
+}
+
+.activity-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
+}
+
+.activity-card .org {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.activity-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* —— Stats —— */
+.stats-strip {
+  margin: 3rem 0 0;
+  padding: 2.5rem 1.25rem;
+  background: var(--header);
+  color: #e7e5e4;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stats-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .stats-inner {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat-num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  color: #5eead4;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #a8a29e;
+  margin-top: 0.35rem;
+}
+
+/* —— Contact —— */
+.contact-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 560px) {
+  .contact-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.contact-block h3 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.contact-block p,
+.contact-block a {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* —— Modal —— */
+.portfolio-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.portfolio-modal {
+  background: var(--card);
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: auto;
+  border-radius: 6px;
+  padding: 1.5rem 1.75rem;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.portfolio-modal h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.portfolio-modal p {
+  margin-bottom: 1rem;
+}
+
+.portfolio-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.portfolio-modal-close:hover {
+  color: var(--ink);
+}
+
+.portfolio-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}

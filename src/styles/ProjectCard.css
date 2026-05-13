@@ -1,0 +1,108 @@
+.visual-project-card {
+  position: relative;
+  width: 403px;
+  min-width: 0;
+  height: 682px;
+  flex-shrink: 0;
+  white-space: normal; /* parent .projects-scroll-container uses nowrap for the strip */
+}
+
+.visual-project-card[role='button'] {
+  cursor: pointer;
+}
+
+.visual-project-card[role='button']:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 4px;
+}
+
+.visual-project-card-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 403px;
+  height: 682px;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.visual-project-card-background svg {
+  width: 100%;
+  height: 100%;
+}
+
+.project-title {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  top: 502px;
+  width: auto;
+  max-width: calc(100% - 52px);
+  margin: 0;
+  padding: 0;
+  color: #000;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+  z-index: 2;
+}
+
+.project-image {
+  position: absolute;
+  left: 26px;
+  top: 53px;
+  width: 336px;
+  height: 378px;
+  flex-shrink: 0;
+  aspect-ratio: 8/9;
+  object-fit: cover;
+  z-index: 1;
+}
+
+@media (max-width: 1200px) {
+  .visual-project-card {
+    width: 320px;
+    height: 540px;
+  }
+
+  .project-title {
+    font-size: 40px;
+    left: 20px;
+    right: 20px;
+    top: 420px;
+  }
+
+  .project-image {
+    width: 280px;
+    height: 315px;
+    left: 20px;
+    top: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .visual-project-card {
+    width: 280px;
+    height: 480px;
+  }
+
+  .project-title {
+    font-size: 32px;
+    left: 20px;
+    right: 20px;
+    top: 380px;
+  }
+
+  .project-image {
+    width: 240px;
+    height: 270px;
+    left: 20px;
+    top: 30px;
+  }
+}

@@ -1,0 +1,104 @@
+.about-section {
+  position: relative;
+  width: 100%;
+}
+
+.card-section {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Responsive box: CardSwap fillContainer measures this node */
+.about-card-swap-host {
+  position: relative;
+  width: 100%;
+  /* Taller box: larger second number → more height for the same width */
+  aspect-ratio: 8 / 5.5;
+  max-height: min(560px, 68vh);
+  min-height: 260px;
+  /* Cards stack with negative Y — overflow:hidden clips the top of the deck */
+  overflow: visible;
+  border-radius: 12px;
+}
+
+.about-background {
+  border-radius: 20px;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #EAE4D5;
+  flex-shrink: 0;
+}
+
+.about-content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-text {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  width: 100%;
+  height: 100%;
+  color: #000;
+  font-family: 'Geist', -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  flex-shrink: 0;
+}
+
+.custom-card {
+  border-radius: 12px;
+  color: #000000;
+}
+
+@media (max-width: 1200px) {
+  .about-background {
+    left: 200px;
+    width: 600px;
+  }
+
+  .about-text {
+    left: 250px;
+    width: 500px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-background {
+    left: 100px;
+    width: 500px;
+  }
+
+  .about-text {
+    left: 150px;
+    width: 400px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-background {
+    left: 20px;
+    width: calc(100% - 40px);
+    height: auto;
+    min-height: 300px;
+  }
+
+  .about-text {
+    left: 40px;
+    width: calc(100% - 80px);
+    font-size: 16px;
+    position: relative;
+    height: auto;
+    padding: 20px;
+  }
+}

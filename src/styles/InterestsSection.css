@@ -1,0 +1,147 @@
+.interests-section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.interests-title {
+  position: absolute;
+  left: 645px;
+  top: 100px;
+  width: 222px;
+  height: 65px;
+  color: #B6B09F;
+  font-family: 'Geist', -apple-system, Roboto, Helvetica, sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.interests-gallery {
+  position: relative;
+  height: 600px;
+}
+
+.interest-image {
+  position: absolute;
+  flex-shrink: 0;
+  object-fit: cove
+}
+
+.interest-image-1 {
+  left: 87px;
+  top: 323px;
+  width: 456px;
+  height: 342px;
+  aspect-ratio: 4/3;
+}
+
+.interest-image-2 {
+  left: 637px;
+  top: 301px;
+  width: 289px;
+  height: 386px;
+  aspect-ratio: 143/191;
+}
+
+.interest-image-3 {
+  left: 1070px;
+  top: 301px;
+  width: 226px;
+  height: 385px;
+  aspect-ratio: 27/46;
+}
+
+@media (max-width: 1400px) {
+  .interests-title {
+    left: 500px;
+  }
+
+  .interest-image-1 {
+    left: 50px;
+    width: 380px;
+    height: 285px;
+  }
+
+  .interest-image-2 {
+    left: 480px;
+    width: 240px;
+    height: 320px;
+  }
+
+  .interest-image-3 {
+    left: 780px;
+    width: 180px;
+    height: 308px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .interests-title {
+    left: 400px;
+    font-size: 40px;
+  }
+
+  .interest-image-1 {
+    left: 30px;
+    width: 320px;
+    height: 240px;
+  }
+
+  .interest-image-2 {
+    left: 380px;
+    width: 200px;
+    height: 267px;
+  }
+
+  .interest-image-3 {
+    left: 620px;
+    width: 150px;
+    height: 256px;
+  }
+}
+
+@media (max-width: 900px) {
+  .interests-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    height: auto;
+    padding-top: 400px;
+  }
+
+  .interest-image {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .interest-image-1,
+  .interest-image-2,
+  .interest-image-3 {
+    width: 300px;
+    height: auto;
+  }
+
+  .interests-title {
+    left: 300px;
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .interests-title {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .interest-image-1,
+  .interest-image-2,
+  .interest-image-3 {
+    width: 280px;
+  }
+}
