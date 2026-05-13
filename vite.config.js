@@ -1,7 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig({
+// Must match the GitHub repo name: https://louiscao669.github.io/personal_website/
+const GH_PAGES_BASE = '/personal_website/'
+
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: '/personal_website/',
-})
+  base: command === 'build' ? GH_PAGES_BASE : '/',
+}))
