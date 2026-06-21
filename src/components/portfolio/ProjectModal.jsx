@@ -25,6 +25,15 @@ export default function ProjectModal({ project, onClose }) {
         </button>
         <h3 id="project-modal-title">{project.title}</h3>
         <p>{project.summary}</p>
+        {project.links?.length > 0 ? (
+          <div className="portfolio-modal-links">
+            {project.links.map((link) => (
+              <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   )

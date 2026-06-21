@@ -1,0 +1,125 @@
+.projects-display {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.projects-grid-display {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.project-grid-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid var(--line, #d6d4cf);
+  border-radius: 1rem;
+  background: var(--card, #fff);
+  overflow: hidden;
+  text-align: left;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-grid-card[role='button'] {
+  cursor: pointer;
+}
+
+.project-grid-card[role='button']:hover {
+  border-color: var(--accent, #0f766e);
+  box-shadow: 0 8px 28px rgba(15, 118, 110, 0.1);
+}
+
+.project-grid-card[role='button']:hover .project-grid-card__photo {
+  transform: scale(1.03);
+}
+
+.project-grid-card[role='button']:focus-visible {
+  outline: 2px solid var(--accent, #0f766e);
+  outline-offset: 3px;
+}
+
+.project-grid-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg-alt, #f4f3f0);
+  border-bottom: 1px solid var(--line, #d6d4cf);
+}
+
+.project-grid-card__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease;
+}
+
+.project-grid-card__photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e8e6e1 0%, #d6d4cf 100%);
+}
+
+.project-grid-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.project-grid-card__title {
+  margin: 0 0 0.45rem;
+  font-family: 'Source Sans 3', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink, #1a1a1a);
+}
+
+.project-grid-card__summary {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted, #5c5c5c);
+}
+
+.project-grid-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.project-grid-card__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--line, #d6d4cf);
+  background: var(--bg-alt, #f4f3f0);
+  color: var(--ink, #1a1a1a);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.project-grid-card__link:hover {
+  border-color: var(--accent, #0f766e);
+  color: var(--accent, #0f766e);
+  background: #fff;
+}
+
+@media (max-width: 720px) {
+  .projects-grid-display {
+    grid-template-columns: 1fr;
+  }
+}

@@ -111,6 +111,42 @@
   transition: 0.1s ease;
 }
 
+.drag-hint {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  left: auto;
+  z-index: 20;
+  transform: none;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.drag-hint.active {
+  opacity: 1;
+}
+
+.drag-hint.inactive {
+  opacity: 0;
+}
+
+/* <p> inside .portfolio-section inherits var(--muted) — override for the hint pill */
+.drag-hint .drag-hint-text {
+  margin: 0;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(21, 21, 21, 0.88);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+
 @media (max-width: 1500px) {
   .face-title, .face-description {
     display: none;

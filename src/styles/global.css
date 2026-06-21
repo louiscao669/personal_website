@@ -6,19 +6,18 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
 body {
   font-family: 'Source Sans 3', system-ui, sans-serif;
   background-color: #f4f4f2;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
 #root {
-  overflow-x: hidden;
   max-width: 100%;
 }
 

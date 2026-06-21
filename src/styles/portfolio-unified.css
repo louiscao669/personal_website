@@ -1,8 +1,7 @@
 /* Merge original interactive template into portfolio layout & tokens */
 
 .portfolio-home-anchor {
-  scroll-margin-top: 3rem;
-  overflow-x: hidden;
+  scroll-margin-top: 4.25rem;
   max-width: 100%;
 }
 
@@ -135,7 +134,7 @@
   min-height: 0;
 }
 
-/* Integrated horizontal strips — height follows cards (no fixed 682px strip) */
+/* Integrated projects: 2-column grid until the list is long enough to need a strip */
 .portfolio .projects-section.projects-section--integrated,
 .portfolio .involvements-section.involvements-section--integrated {
   position: relative;
@@ -143,15 +142,7 @@
   min-height: 0;
   height: auto;
   padding-bottom: 0;
-  /* Base sections use overflow-x: hidden only; paired overflow-y becomes auto and the
-     2254px-tall .background-blur-effects (projects) becomes vertically scrollable. */
-  overflow: hidden;
-}
-
-.portfolio .projects-section--integrated .background-blur-effects {
-  opacity: 0.35;
-  left: 50%;
-  transform: translateX(-50%);
+  overflow: visible;
 }
 
 .portfolio .projects-section--integrated .section-title,
@@ -159,14 +150,59 @@
   display: none;
 }
 
+.portfolio .projects-section--integrated .projects-display,
+.portfolio .involvements-section--integrated .involvements-display {
+  margin-top: 0.5rem;
+}
+
 .portfolio .projects-section--integrated .projects-scroll-container,
+.portfolio .involvements-section--integrated .projects-scroll-container {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 100%;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  white-space: normal;
+  scroll-behavior: smooth;
+  container-type: inline-size;
+}
+
+.portfolio .projects-section--integrated .projects-grid-display--scroll,
+.portfolio .involvements-section--integrated .projects-grid-display--scroll {
+  display: flex;
+  grid-template-columns: none;
+  width: max-content;
+  max-width: none;
+  gap: 1.25rem;
+  padding: 1.25rem;
+}
+
+.portfolio .projects-section--integrated .projects-grid-display--scroll .project-grid-card,
+.portfolio .involvements-section--integrated .projects-grid-display--scroll .project-grid-card {
+  flex: 0 0 clamp(17rem, calc((100cqw - 2.5rem) / 2.35), 28rem);
+}
+
+.portfolio .projects-section--integrated .project-grid-card__title,
+.portfolio .involvements-section--integrated .project-grid-card__title {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+/* Involvements horizontal strip */
+.portfolio .involvements-section.involvements-section--integrated {
+  overflow: hidden;
+}
+
 .portfolio .involvements-section--integrated .involvement-scroll-container {
   position: relative;
   left: auto;
   top: auto;
   width: 100%;
   max-width: 100%;
-  margin-top: 0.5rem;
   height: auto;
   min-height: 0;
   border-color: var(--line);
@@ -174,29 +210,39 @@
   background: var(--card);
 }
 
-.portfolio .projects-section--integrated .projects-grid,
 .portfolio .involvements-section--integrated .involvements-grid {
-  display: flex; /* inline-flex leaves a line-box gap under the row → space above the x scrollbar */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: max-content;
+  max-width: none;
   padding: 1.5rem 1.25rem;
+  padding-bottom: 3.75rem;
   gap: 2rem;
   align-items: flex-start;
-  /* Scroll containers use white-space: nowrap for the legacy strip; reset so card titles wrap */
   white-space: normal;
 }
 
-.portfolio .projects-section--integrated .scroll-hint,
-.portfolio .involvements-section--integrated .involvement-scroll-hint {
-  top: auto;
-  bottom: 1rem;
-  right: 1rem;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--line);
+.portfolio .involvements-section--integrated .strip-scroll-outer {
+  margin-top: 0.5rem;
+  overflow: visible;
 }
 
-.portfolio .projects-section--integrated .project-title,
+.portfolio .projects-section--integrated .strip-scroll-outer.has-scroll-affordance,
+.portfolio .involvements-section--integrated .strip-scroll-outer.has-scroll-affordance {
+  --scroll-fade-bg: var(--card);
+}
+
 .portfolio .involvements-section--integrated .involvement-title {
   font-family: 'Source Serif 4', Georgia, serif;
   color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .portfolio .projects-section--integrated .projects-grid-display--scroll .project-grid-card,
+  .portfolio .involvements-section--integrated .projects-grid-display--scroll .project-grid-card {
+    flex-basis: calc((100cqw - 1rem) / 1.18);
+  }
 }
 
 /* Interests */
@@ -219,6 +265,10 @@
   border-radius: 8px;
   overflow: hidden;
   background: var(--header);
+}
+
+.portfolio .interests-gallery .drag-hint-text {
+  color: #ffffff;
 }
 
 .portfolio-section--work .portfolio-work-intro {

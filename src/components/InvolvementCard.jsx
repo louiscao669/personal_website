@@ -14,7 +14,7 @@ const InvolvementCard = ({ title, image, alt }) => {
   const tierClass = involvementTitleLengthClass(title)
 
   return (
-    <div className="involvement-card">
+    <div className="involvement-card" data-strip-card>
       <div className="involvement-card-background" aria-hidden>
         <svg
           width="411"

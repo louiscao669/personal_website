@@ -7,18 +7,15 @@ const placeholder =
 export const site = {
   name: 'Louis Cao',
   headline: "Engineer · Builder · Curious about what's next",
-  heroLead:
-    "I'm a software engineer who enjoys turning problems into products and creates with clear purposes. Scroll down to learn more about me.",
+  heroLead: '',
 
   about: {
-    title: 'Let me introduce myself.',
+    title: '',
     paragraphs: [
-      "I care about thoughtful interfaces, reliable systems, and collaboration that ships. Below is a short overview—swap in your own story, school, and focus areas.",
-      "I'm open to roles where I can own features end-to-end, mentor others, and learn from users and teammates.",
+      "Pursuing a B.S. degree in Computer Science, I am an aspiring software engineer currently contributing full-time to HCI research at University of Notre Dame.",
     ],
     profile: {
-      blurb:
-        "Currently building this portfolio as a living document. If you think we'd work well together, say hello via email.",
+      blurb: '',
       bullets: [
         { label: 'Full name', value: 'Louis Cao' },
         { label: 'Location', value: 'Notre Dame, IN' },
@@ -39,54 +36,189 @@ export const site = {
       'The card stack is the playful layer; the copy above is the concise layer. Edit both in this file so they tell one story.',
   },
 
-  skillsIntro:
-    "Highlights of tools and languages I reach for most often. Adjust percentages to match your comfort level.",
-
-  skills: [
-    { name: 'TypeScript / React', percent: 85 },
-    { name: 'Python', percent: 80 },
-    { name: 'System design', percent: 70 },
-    { name: 'Data & APIs', percent: 75 },
-    { name: 'Design collaboration', percent: 65 },
-  ],
-
   cta: {
     hireLabel: 'Hire me',
-    hireHref: 'mailto:you@example.com',
+    hireHref: 'mailto:lcao4@nd.edu',
     cvLabel: 'Download CV',
     cvHref: 'https://drive.google.com/file/d/1RqKcOh-WdmTt7oSVxjCwQ5F7vTSvMu5_/view?usp=drive_link',
   },
 
   resume: {
-    title: 'More of my credentials.',
+    title: 'Resume',
     work: [
       {
-        role: 'Software Engineer',
-        dates: '20XX – Present',
-        org: 'Your Company',
+        role: 'LLM Research Assistant',
+        dates: 'August 2025 – Present',
+        org: 'ETEN Bible Translation Project, HCI Lab — University of Notre Dame',
         detail:
-          'Describe scope, stack, and impact. Quantify wins where you can (latency, revenue, reliability).',
+          'Built an LLM-based LangChain pipeline to select, simplify and score Bible Q/A pairs along with an NLI-based precision-recall evaluation framework, used to crowdsource comprehension of translated Bible passages. Evaluated the pipeline by simulating user response using small language models to translations of varying qualities and developed question assignment algorithm based on Item Response Theory. Developed a React/Flask analytical platform with Supabase-backed workflows for QA-item management, participant tracking, response review, analytics dashboards, and structured data exports. Built and deployed a WhatsApp integrated backend that assigns translation questions, captures participant audio/text responses, triggers reminders, and syncs review data for human-in-the-loop translation quality assessment.',
       },
       {
-        role: 'Intern / Contractor',
-        dates: '20XX – 20XX',
-        org: 'Previous org',
+        role: 'Data Mining & LLM Research Assistant',
+        dates: 'March 2026 – Present',
+        org: 'MoReBench LLM Moral Reasoning Benchmark, DMDM Lab — University of Notre Dame',
         detail:
-          'Shipped features X and Y; collaborated across design and backend; learned Z.',
+          'Reproducing benchmarks for evaluating procedural integrity and pluralistic reasoning of LLMs in complex moral dilemmas.',
+      },
+      {
+        role: 'Teaching Assistant',
+        dates: 'August 2025 – May 2026',
+        org: 'Department of Mathematics, University of Notre Dame',
+        detail:
+          'Selected as teaching assistant by the professor due to outstanding performance in Math Reasoning. Evaluated proofs and provided feedback for 30 students, focusing on rigorous mathematical writing.',
+      },
+      {
+        role: 'LLM Research Assistant',
+        dates: 'January 2025 – April 2025',
+        org: 'Personalized Recommendations & User Privacy Project, HCI Lab — University of Notre Dame',
+        detail:
+          'Created 200+ unique, reproducible synthetic personas with personal attributes, schedules, and browsing histories using LLMs with retrieval-augmented generation, ensuring data realism. Automated manipulation of 200+ Google accounts using JavaScript, Google Account APIs, and Puppeteer to vary personal attributes and measure effects on ad recommendations. Produced a 20-page research paper on the correlation between personal data and online content recommendation.',
+      },
+    ],
+    projects: [
+      {
+        role: 'Participant, 1st Place Winner',
+        dates: 'April 2025',
+        org: 'University of Notre Dame Hackathon, Notre Dame, IN',
+        detail:
+          'Developed an online meeting application providing real-time speech-to-text transcription, LLM-based context-aware response generation, and an ML-powered mind map to assist people with hearing or speech disabilities in meetings, built using Python, JavaScript, React, and React Flow. Invited by two businesses to continue developing the project; placed 1st among 8 teams and 25+ participants.',
+      },
+    ],
+    leadership: [
+      {
+        role: 'Intern, Head Volunteer',
+        dates: 'June 2025 – July 2025',
+        org: 'Saint Francis Inn, Philadelphia, PA',
+        detail:
+          'Coordinated 50+ volunteers and collaborated with staff to provide daily services to 300+ community members in a high-volume, fast-paced environment.',
+      },
+    ],
+    skills: [
+      {
+        category: 'Platforms',
+        items: ['Linux', 'MacOS', 'Windows'],
+      },
+      {
+        category: 'Programming',
+        items: [
+          'Python',
+          'C',
+          'Java',
+          'JavaScript',
+          'HTML/CSS',
+          'React.js',
+          'MATLAB',
+          'Git',
+          'SQL',
+        ],
+      },
+      {
+        category: 'Technical',
+        items: [
+          'LLM integration',
+          'Data structures & algorithms',
+          'Backend development',
+          'Frontend development',
+          'Data mining',
+          'Machine learning',
+          'Modeling',
+          'Operating systems',
+          'Distributed systems',
+          'Debugging',
+          'Software architecture',
+        ],
       },
     ],
     education: [
       {
-        degree: "Bachelor's degree",
-        dates: '20XX – 20XX',
-        school: 'Your University',
-        detail: 'Major, honors, clubs, or thesis title in one line.',
+        degree: 'Bachelor of Science',
+        dates: 'Expected May 2028',
+        school: 'University of Notre Dame, Notre Dame, IN',
+        major: 'Computer Science & Mathematics',
+        concentration: 'Human-Computer Interactions, Large Language Models',
+        honors:
+          "GPA 3.86 · Putnam Mathematical Competition National Top 28% · Dean's List · Glynn Family Honors Program",
+        detail:
+          'Related coursework includes distributed systems, programming paradigms, AI, systems programming, data structures, computer architecture, and advanced mathematics.',
+      },
+    ],
+    monthlyTimelineIntro:
+      'Bars show each experience over time. Drag the handle on the bottom line to browse month by month.',
+    monthlyExperiences: [
+      {
+        id: 'nd-degree',
+        startMonth: '2024-08',
+        endMonth: '2028-05',
+        color: '#e07a3a',
+        category: 'education',
+        title: 'B.S. Computer Science & Mathematics',
+        org: 'University of Notre Dame',
+        detail:''
       },
       {
-        degree: 'High school',
-        dates: '20XX – 20XX',
-        school: 'Your school',
-        detail: 'Notable awards or leadership in one line.',
+        id: 'hci-privacy',
+        startMonth: '2025-01',
+        endMonth: '2025-04',
+        color: '#c93d4a',
+        category: 'work',
+        title: 'LLM Research Assistant',
+        org: 'HCI Lab — Personalized Recommendations',
+        detail:
+          'Synthetic personas, Google account automation for ad-recommendation research, and a 20-page paper on personal data and online recommendations.',
+      },
+      {
+        id: 'hackathon-2025',
+        startMonth: '2025-04',
+        endMonth: '2025-04',
+        color: '#7b4bb8',
+        category: 'project',
+        title: 'Hackathon — 1st Place',
+        org: 'University of Notre Dame',
+        detail:
+          'Accessible meeting app with speech-to-text, LLM responses, and mind maps; invited by two businesses to continue development.',
+      },
+      {
+        id: 'saint-francis',
+        startMonth: '2025-06',
+        endMonth: '2025-07',
+        color: '#d4a017',
+        category: 'activity',
+        title: 'Intern, Head Volunteer',
+        org: 'Saint Francis Inn, Philadelphia',
+        detail:
+          'Coordinated 50+ volunteers serving 300+ community members daily in a high-volume environment.',
+      },
+      {
+        id: 'hci-eten',
+        startMonth: '2025-08',
+        endMonth: 'present',
+        color: '#2a9d8f',
+        category: 'work',
+        title: 'LLM Research Assistant',
+        org: 'HCI Lab — ETEN Bible Translation',
+        detail:
+          'Built an LLM-based LangChain pipeline to select, simplify and score Bible Q/A pairs; developed a React/Flask analytics platform; and deployed a WhatsApp integrated backend for human-in-the-loop translation quality assessment.',
+      },
+      {
+        id: 'math-ta',
+        startMonth: '2025-08',
+        endMonth: '2026-05',
+        color: '#3d6fb4',
+        category: 'work',
+        title: 'Teaching Assistant',
+        org: 'Department of Mathematics, Notre Dame',
+        detail: 'Proof evaluation and feedback for 30 students in Math Reasoning.',
+      },
+      {
+        id: 'dmdm-morebench',
+        startMonth: '2026-03',
+        endMonth: 'present',
+        color: '#b83f8f',
+        category: 'work',
+        title: 'Data Mining & LLM Research Assistant',
+        org: 'DMDM Lab — MoReBench',
+        detail:
+          'Reproducing benchmarks for procedural integrity and pluralistic moral reasoning in LLMs.',
       },
     ],
   },
@@ -103,49 +235,41 @@ export const site = {
     title: 'Check out my creations.',
     items: [
       {
-        title: 'Personal website',
+        title: 'Accessible meeting app (Hackathon)',
         summary:
-          'This portfolio: Vite, React, and a single content file so updates stay easy. Deployed on GitHub Pages.',
-        image: placeholder,
-        alt: 'Code on a laptop screen',
+          '1st place at ND Hackathon: real-time speech-to-text, LLM responses, and mind maps for accessible meetings.',
+        image:
+          'https://i.postimg.cc/pV78fdDR/Screenshot-2026-06-21-at-5-31-05-PM.png',
+        alt: 'Accessible meeting app interface screenshot',
+        links: [
+          'https://github.com/Leoreoreo/Meeting_Assistant',
+        ],
       },
       {
-        title: 'Project two',
-        summary: 'One or two sentences on problem, approach, and outcome.',
-        image:
-          'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
-        alt: 'Analytics dashboard',
-      },
-      {
-        title: 'Project three',
-        summary: 'Link to repo or demo when you have one.',
-        image:
-          'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
-        alt: 'Laptop on a desk',
+        title: 'Distributed Prediction Market Platform (YCombinator)',
+        summary:
+          'Built a forecasting platform with a Kafka-based AWS backend, React/Next.js market UI, and a read-optimized MySQL/Redis data layer with leader failover and reliable transaction handling.',
+        image: 'https://i.postimg.cc/0Qnn513j/Screenshot-2026-06-21-at-5-28-04-PM.png',
+        alt: 'Prediction market platform interface screenshot',
+        links: [
+          { label: 'GitHub', href: 'https://github.com/louiscao669/Polaris', icon: 'github' },
+        ],
       },
     ],
   },
 
   activities: {
     title: 'Leadership & extracurriculars.',
-    intro: 'Summary of roles outside day-to-day work.',
+    intro: 'Roles outside research and coursework.',
     items: [
       {
-        title: 'Club / org role',
-        org: 'Organization name',
+        title: 'Intern, Head Volunteer',
+        org: 'Saint Francis Inn, Philadelphia',
         detail:
-          'What you did, who it helped, and a measurable or qualitative outcome.',
+          'Coordinated 50+ volunteers serving 300+ community members daily during a two-month summer placement.',
         image:
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80',
-        alt: 'Team collaboration',
-      },
-      {
-        title: 'Volunteering',
-        org: 'Community',
-        detail: 'Short description with link if relevant.',
-        image:
-          'https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=800&q=80',
-        alt: 'Volunteering',
+          'https://i.postimg.cc/R0jGpTtK/IMG-8903.jpg',
+        alt: 'Community volunteering',
       },
     ],
   },
@@ -156,43 +280,82 @@ export const site = {
     items: [
       {
         image:
-          'https://api.builder.io/api/v1/image/assets/TEMP/2365485c0050abdd386287efcf0aa8768998f174?width=912',
-        link: 'https://example.com',
+          'https://i.postimg.cc/tCMxkXNV/IMG-8921.jpg',
+        link: 'https://i.postimg.cc/tCMxkXNV/IMG-8921.jpg',
+        title: 'Service',
+        description: 'Spent 2 months and 1300+ hours in serving the Philadelphia community',
+      },
+      {
+        image:
+          'https://i.postimg.cc/7Yd57Kqq/a01973f2a268fced3544127d59fcabd0.jpg',
+        link: 'https://i.postimg.cc/7Yd57Kqq/a01973f2a268fced3544127d59fcabd0.jpg',
+        title: 'Church',
+        description: 'Staying grounded with my faith',
+      },
+      {
+        image:
+          'https://i.postimg.cc/3xj3R1NM/IMG-6775.jpg',
+        link: 'https://i.postimg.cc/3xj3R1NM/IMG-6775.jpg',
+        title: 'Notre Dame Football',
+      },
+      {
+        image:
+          'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
+        link: 'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
+        title: 'Fellowship',
+        description: 'Time with the fellowhip I spend 5+ hours a week with',
+      },
+      {
+        image:
+          'https://i.postimg.cc/8Cv8wrdx/321dc3a84b2606d4ec83577cc6ed0e2b.jpg',
+        link: 'https://i.postimg.cc/8Cv8wrdx/321dc3a84b2606d4ec83577cc6ed0e2b.jpg',
         title: 'Hiking',
-        description: 'Trails, maps, and long days outside.',
       },
       {
         image:
           'https://api.builder.io/api/v1/image/assets/TEMP/17de13a8711d29a39425f4ea7b220c88910cee8e?width=578',
-        link: 'https://example.com',
+        link: 'https://api.builder.io/api/v1/image/assets/TEMP/17de13a8711d29a39425f4ea7b220c88910cee8e?width=578',
         title: 'Rowing',
-        description: 'Rhythm, crew, early mornings.',
+        description: 'Who doesn\'t like kayak?',
       },
       {
         image:
           'https://api.builder.io/api/v1/image/assets/TEMP/e881db67cc2243b2f9c381757729571b5ffae4aa?width=452',
-        link: 'https://example.com',
-        title: 'Sports',
-        description: 'Watching or playing—both recharge me.',
+        link: 'https://api.builder.io/api/v1/image/assets/TEMP/e881db67cc2243b2f9c381757729571b5ffae4aa?width=452',
+        title: 'Basketball',
       },
+      {
+        image:
+          'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
+        link: 'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
+        title: 'Soccer',
+      },
+      {
+        image:
+          'https://i.postimg.cc/4xTpnDLZ/IMG-4901.jpg',
+        link: 'https://i.postimg.cc/4xTpnDLZ/IMG-4901.jpg',
+        title: 'Performance',
+        description: 'Performing in Notre Dame CSSA spring gala',
+      },
+      
     ],
   },
 
   stats: [
-    { value: 12, suffix: '+', label: 'Projects shipped' },
+    { value: 15, suffix: '+', label: 'Projects shipped' },
     { value: 3, suffix: '', label: 'Awards / honors' },
     { value: 1000, suffix: '+', label: 'Hours coding' },
-    { value: 50, suffix: '+', label: 'Books read' },
+    { value: 100, suffix: '+', label: 'Books read' },
   ],
 
   contact: {
-    title: "I'd love to connect with you.",
-    intro: 'Tell me what you are building or learning.',
-    location: 'Your city, region',
-    email: 'you@example.com',
+    title: '',
+    intro: '',
+    location: 'Notre Dame, IN',
+    email: 'lcao4@nd.edu',
     social: [
-      { label: 'GitHub', href: 'https://github.com/' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
+      { label: 'GitHub', href: 'https://github.com/louiscao669' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/louis-cao0669' },
     ],
   },
 }
@@ -201,7 +364,8 @@ export const site = {
 export function involvementStripItems(activities) {
   if (!activities?.items?.length) return []
   return activities.items.map((a) => ({
-    title: `${a.title} — ${a.org}`,
+    title: a.title,
+    summary: [a.org, a.detail].filter(Boolean).join('. '),
     image: a.image ?? placeholder,
     alt: a.alt ?? a.title,
   }))

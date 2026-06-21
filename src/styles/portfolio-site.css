@@ -13,7 +13,6 @@
   font-family: 'Source Sans 3', system-ui, sans-serif;
   color: var(--ink);
   background: var(--bg);
-  overflow-x: hidden;
   max-width: 100%;
 }
 
@@ -33,7 +32,6 @@
 
 .portfolio main {
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* —— Top bar —— */
@@ -61,14 +59,35 @@
   line-height: 1.5;
 }
 
-/* —— Sticky nav —— */
+/* —— Nav: top of page, fixed; hides on scroll down, shows on scroll up —— */
+.portfolio-nav-sticky-root {
+  position: relative;
+}
+
+.portfolio-nav-spacer {
+  width: 100%;
+  pointer-events: none;
+}
+
 .portfolio-nav-wrap {
-  position: sticky;
-  top: 0;
   z-index: 50;
   background: rgba(21, 21, 21, 0.92);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid #292524;
+  transition: transform 0.22s ease;
+}
+
+.portfolio-nav-wrap.is-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.portfolio-nav-wrap.is-scroll-hidden {
+  transform: translateY(-100%);
+  pointer-events: none;
 }
 
 .portfolio-nav {
@@ -114,7 +133,7 @@
 
 .portfolio-section {
   padding-top: 3.5rem;
-  scroll-margin-top: 3rem;
+  scroll-margin-top: 4.25rem;
 }
 
 .portfolio-kicker {
@@ -302,6 +321,41 @@
   color: var(--ink);
 }
 
+.timeline-item__line {
+  margin: 0 0 0.35rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.resume-skills {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--line);
+}
+
+.resume-skills__group {
+  margin-bottom: 1.25rem;
+}
+
+.resume-skills__group:last-child {
+  margin-bottom: 0;
+}
+
+.resume-skills__category {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+  color: var(--ink);
+}
+
+.resume-skills__items {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
 /* —— Projects —— */
 .project-grid {
   display: grid;
@@ -481,6 +535,17 @@
 
 .portfolio-modal p {
   margin-bottom: 1rem;
+}
+
+.portfolio-modal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.portfolio-modal-links a {
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .portfolio-modal-close {

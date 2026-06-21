@@ -1,0 +1,353 @@
+.resume-month-timeline {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.resume-month-timeline__heading {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.15rem;
+  margin: 0 0 0.35rem;
+}
+
+.resume-month-timeline__intro {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+  max-width: 40rem;
+}
+
+.resume-month-timeline__chart-wrap {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1.25rem 2.75rem 1rem 1.35rem;
+  overflow: visible;
+}
+
+/* Gutter so end dots, flags, and the dragger are not clipped at 0% / 100% */
+.resume-month-timeline__plot {
+  --track-gutter-left: 0.5rem;
+  --track-gutter-right: 1.15rem;
+  --plot-inset: 4px;
+  --axis-height: 2rem;
+  --axis-line-center: 1.5px; /* vertical center of the 3px axis line */
+  position: relative;
+  width: 100%;
+  margin-inline: var(--track-gutter-left) var(--track-gutter-right);
+  box-sizing: border-box;
+}
+
+/* Stops at the axis line (same height as the dragger center), not below it */
+.resume-month-timeline__scrub-line {
+  position: absolute;
+  left: calc(var(--plot-inset) + var(--scrub-ratio, 0) * (100% - 2 * var(--plot-inset)));
+  top: 0;
+  bottom: calc(var(--axis-height) - var(--axis-line-center));
+  width: 2px;
+  background: var(--accent);
+  opacity: 0.28;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.resume-month-timeline__lanes {
+  --lane-height: 3.5rem;
+  --lane-gap: 0.4rem;
+  width: 100%;
+  padding-inline: var(--plot-inset);
+  box-sizing: border-box;
+  margin-bottom: 0.75rem;
+  overflow: visible;
+}
+
+.resume-month-timeline__lanes-inner {
+  position: relative;
+  width: 100%;
+  min-height: calc(
+    var(--lane-count) * var(--lane-height) + (var(--lane-count) - 1) * var(--lane-gap) + 2.5rem
+  );
+}
+
+/* Title flag on top, colored bar + dots below (no overlap) */
+.resume-month-timeline__event {
+  position: absolute;
+  top: calc(var(--lane) * (var(--lane-height) + var(--lane-gap)));
+  height: var(--lane-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  min-width: 2.5rem;
+}
+
+.resume-month-timeline__event:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.resume-month-timeline__event-flag {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  max-width: 100%;
+  padding: 0.2rem 0.4rem;
+  background: #fff;
+  border: 1.5px solid var(--event-color, var(--accent));
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(21, 21, 21, 0.08);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.resume-month-timeline__event:not(.is-in-month) {
+  opacity: 0.32;
+}
+
+.resume-month-timeline__event.is-in-month {
+  opacity: 1;
+}
+
+.resume-month-timeline__event.is-focused .resume-month-timeline__event-flag {
+  border-width: 2px;
+  box-shadow: 0 2px 8px rgba(21, 21, 21, 0.12);
+}
+
+.resume-month-timeline__event-track {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  height: 0.85rem;
+  pointer-events: none;
+}
+
+.resume-month-timeline__event-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0.55rem;
+  background: var(--event-color, var(--accent));
+  border-radius: 2px;
+  opacity: 0.92;
+  transform: translateY(-50%);
+}
+
+.resume-month-timeline__event.is-focused .resume-month-timeline__event-bar {
+  height: 0.6rem;
+  opacity: 1;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.resume-month-timeline__event-dot {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--event-color, var(--accent));
+  border: 2px solid var(--ink);
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.resume-month-timeline__event-dot--start {
+  left: 0;
+  transform: translateX(-50%);
+}
+
+.resume-month-timeline__event-dot--end {
+  right: 0;
+  transform: translateX(50%);
+}
+
+/* Bottom timeline + dragger (same element — no extra scrubber bar) */
+.resume-month-timeline__axis {
+  position: relative;
+  width: 100%;
+  height: var(--axis-height);
+  margin-top: 0.15rem;
+  padding-inline: var(--plot-inset);
+  box-sizing: border-box;
+  cursor: grab;
+  touch-action: none;
+}
+
+.resume-month-timeline__axis.is-dragging {
+  cursor: grabbing;
+}
+
+.resume-month-timeline__axis-line {
+  position: absolute;
+  left: var(--plot-inset);
+  right: var(--plot-inset);
+  top: 0;
+  height: 3px;
+  background: var(--ink);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.resume-month-timeline__axis-thumb {
+  position: absolute;
+  left: calc(var(--plot-inset) + var(--scrub-ratio, 0) * (100% - 2 * var(--plot-inset)));
+  top: calc(var(--axis-line-center) - 7px);
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--ink);
+  transform: translateX(-50%);
+  cursor: grab;
+  z-index: 2;
+  transition: left 0.2s ease;
+}
+
+.resume-month-timeline__axis.is-dragging .resume-month-timeline__axis-thumb {
+  cursor: grabbing;
+  transition: none;
+}
+
+.resume-month-timeline__axis-thumb:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.resume-month-timeline__axis-label {
+  position: absolute;
+  top: 0.55rem;
+  left: calc(var(--plot-inset) + var(--tick-ratio, 0) * (100% - 2 * var(--plot-inset)));
+  max-width: calc(50% - var(--plot-inset));
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.resume-month-timeline__axis-label:first-child {
+  left: var(--plot-inset);
+  max-width: none;
+  transform: none;
+}
+
+.resume-month-timeline__axis-label:last-child {
+  left: auto;
+  right: var(--plot-inset);
+  max-width: none;
+  transform: none;
+  text-align: right;
+}
+
+/* Selected month panel */
+.resume-month-timeline__month-panel {
+  margin-top: 1.15rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.resume-month-timeline__month-panel-label {
+  margin: 0 0 0.85rem;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.resume-month-timeline__month-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resume-month-timeline__month-list > li {
+  margin-bottom: 0.65rem;
+}
+
+.resume-month-timeline__month-list > li:last-child {
+  margin-bottom: 0;
+}
+
+.resume-month-timeline__month-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.45rem 0.35rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  border-radius: 4px;
+}
+
+.resume-month-timeline__month-item:hover,
+.resume-month-timeline__month-item.is-focused {
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.resume-month-timeline__month-item-swatch {
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 1.75rem;
+  border-radius: 2px;
+}
+
+.resume-month-timeline__month-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.resume-month-timeline__month-item-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.resume-month-timeline__month-item-org {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.resume-month-timeline__month-item-detail {
+  margin: 0.35rem 0 0 1.15rem;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.resume-month-timeline__empty {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.98rem;
+}
+
+@media (max-width: 600px) {
+  .resume-month-timeline__event-flag {
+    font-size: 0.65rem;
+    max-width: 7.5rem;
+  }
+}

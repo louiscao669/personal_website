@@ -355,10 +355,49 @@ function createAndSetupTexture(gl, minFilter, magFilter, wrapS, wrapT) {
   return texture;
 }
 
+const ATLAS_CELL_SIZE = 512;
+
+/** Fallback tile when image URL is missing or fails to load (empty URLs block Promise.all otherwise). */
+function createPlaceholderTile(label = 'No image') {
+  const tile = document.createElement('canvas');
+  tile.width = ATLAS_CELL_SIZE;
+  tile.height = ATLAS_CELL_SIZE;
+  const ctx = tile.getContext('2d');
+  ctx.fillStyle = '#4a4a4a';
+  ctx.fillRect(0, 0, ATLAS_CELL_SIZE, ATLAS_CELL_SIZE);
+  ctx.fillStyle = '#d4d4d4';
+  ctx.font = '600 28px system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const text = String(label).slice(0, 24);
+  ctx.fillText(text, ATLAS_CELL_SIZE / 2, ATLAS_CELL_SIZE / 2);
+  return tile;
+}
+
+function loadAtlasImage(url, label) {
+  const trimmed = typeof url === 'string' ? url.trim() : '';
+  if (!trimmed) {
+    return Promise.resolve(createPlaceholderTile(label || 'Add image URL'));
+  }
+
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = () => {
+      console.warn(`InfiniteMenu: could not load image for "${label}":`, trimmed);
+      resolve(createPlaceholderTile(label || 'Image error'));
+    };
+    img.src = trimmed;
+  });
+}
+
 class ArcballControl {
   isPointerDown = false;
   orientation = quat.create();
   pointerRotation = quat.create();
+  /** Accumulated wheel spin (yaw only — no pitch, so horizontal swipe doesn’t feel vertical). */
+  wheelYawDelta = 0;
   rotationVelocity = 0;
   rotationAxis = vec3.fromValues(1, 0, 0);
   snapDirection = vec3.fromValues(0, 0, -1);
@@ -391,6 +430,23 @@ class ArcballControl {
         vec2.set(this.pointerPos, e.clientX, e.clientY);
       }
     });
+    canvas.addEventListener(
+      'wheel',
+      (e) => {
+        const absX = Math.abs(e.deltaX);
+        const absY = Math.abs(e.deltaY);
+        // Vertical scroll passes through so the page can scroll; only horizontal swipes spin the gallery.
+        if (absX <= absY) return;
+
+        e.preventDefault();
+        const WHEEL_SENSITIVITY = 0.0003;
+        const WHEEL_CLAMP = 0.28;
+        const spin = e.deltaX * WHEEL_SENSITIVITY;
+        const next = this.wheelYawDelta + spin;
+        this.wheelYawDelta = Math.max(-WHEEL_CLAMP, Math.min(WHEEL_CLAMP, next));
+      },
+      { passive: false }
+    );
 
     canvas.style.touchAction = 'none';
   }
@@ -399,6 +455,7 @@ class ArcballControl {
     const timeScale = deltaTime / targetFrameDuration + 0.00001;
     let angleFactor = timeScale;
     let snapRotation = quat.create();
+    let wheelRotation = quat.create();
 
     if (this.isPointerDown) {
       const INTENSITY = 0.3 * timeScale;
@@ -424,21 +481,33 @@ class ArcballControl {
         quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
       }
     } else {
-      const INTENSITY = 0.1 * timeScale;
+      const INTENSITY = 0.18 * timeScale;
       quat.slerp(this.pointerRotation, this.pointerRotation, this.IDENTITY_QUAT, INTENSITY);
 
       if (this.snapTargetDirection) {
-        const SNAPPING_INTENSITY = 0.2;
+        const SNAPPING_INTENSITY = 0.34;
         const a = this.snapTargetDirection;
         const b = this.snapDirection;
         const sqrDist = vec3.squaredDistance(a, b);
-        const distanceFactor = Math.max(0.1, 1 - sqrDist * 10);
-        angleFactor *= SNAPPING_INTENSITY * distanceFactor;
+        const distanceFactor = Math.max(0.28, 1 - sqrDist * 12);
+        const wheelSettling = Math.abs(this.wheelYawDelta) < 0.04 ? 1.18 : 1;
+        angleFactor *= SNAPPING_INTENSITY * distanceFactor * wheelSettling;
         this.quatFromVectors(a, b, snapRotation, angleFactor);
       }
     }
 
-    const combinedQuat = quat.multiply(quat.create(), snapRotation, this.pointerRotation);
+    if (Math.abs(this.wheelYawDelta) > 0.00005) {
+      const yaw = -this.wheelYawDelta;
+      wheelRotation = quat.setAxisAngle(quat.create(), vec3.fromValues(0, 1, 0), yaw);
+
+      const WHEEL_DECAY = Math.max(0.65, 0.8 - (timeScale - 1) * 0.03);
+      this.wheelYawDelta *= WHEEL_DECAY;
+    } else {
+      this.wheelYawDelta = 0;
+    }
+
+    const pointerAndWheelRotation = quat.multiply(quat.create(), wheelRotation, this.pointerRotation);
+    const combinedQuat = quat.multiply(quat.create(), snapRotation, pointerAndWheelRotation);
     this.orientation = quat.multiply(quat.create(), combinedQuat, this.orientation);
     quat.normalize(this.orientation, this.orientation);
 
@@ -628,23 +697,17 @@ class InfiniteGridMenu {
     this.atlasSize = Math.ceil(Math.sqrt(itemCount));
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const cellSize = 512;
 
-    canvas.width = this.atlasSize * cellSize;
-    canvas.height = this.atlasSize * cellSize;
+    canvas.width = this.atlasSize * ATLAS_CELL_SIZE;
+    canvas.height = this.atlasSize * ATLAS_CELL_SIZE;
 
-    Promise.all(this.items.map(item =>
-      new Promise(resolve => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => resolve(img);
-        img.src = item.image;
-      })
-    )).then(images => {
+    Promise.all(
+      this.items.map((item) => loadAtlasImage(item.image, item.title))
+    ).then((images) => {
       images.forEach((img, i) => {
-        const x = (i % this.atlasSize) * cellSize;
-        const y = Math.floor(i / this.atlasSize) * cellSize;
-        ctx.drawImage(img, x, y, cellSize, cellSize);
+        const x = (i % this.atlasSize) * ATLAS_CELL_SIZE;
+        const y = Math.floor(i / this.atlasSize) * ATLAS_CELL_SIZE;
+        ctx.drawImage(img, x, y, ATLAS_CELL_SIZE, ATLAS_CELL_SIZE);
       });
 
       gl.bindTexture(gl.TEXTURE_2D, this.tex);
@@ -783,7 +846,10 @@ class InfiniteGridMenu {
     let damping = 5 / timeScale;
     let cameraTargetZ = 3;
 
-    const isMoving = this.control.isPointerDown || Math.abs(this.smoothRotationVelocity) > 0.01;
+    const isMoving =
+      this.control.isPointerDown ||
+      Math.abs(this.smoothRotationVelocity) > 0.015 ||
+      Math.abs(this.control.wheelYawDelta) > 0.03;
 
     if (isMoving !== this.movementActive) {
       this.movementActive = isMoving;
@@ -842,10 +908,12 @@ export default function InfiniteMenu({ items = [] }) {
   const canvasRef = useRef(null);
   const [activeItem, setActiveItem] = useState(null);
   const [isMoving, setIsMoving] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     let sketch;
+    const markInteracted = () => setHasInteracted(true);
 
     const handleActiveItem = (index) => {
       const itemIndex = index % items.length;
@@ -860,6 +928,10 @@ export default function InfiniteMenu({ items = [] }) {
         setIsMoving,
         (sk) => sk.run()
       );
+      canvas.addEventListener('pointerdown', markInteracted, { once: true });
+      canvas.addEventListener('touchstart', markInteracted, { once: true });
+      canvas.addEventListener('mousedown', markInteracted, { once: true });
+      canvas.addEventListener('wheel', markInteracted, { once: true });
     }
 
     const handleResize = () => {
@@ -873,6 +945,12 @@ export default function InfiniteMenu({ items = [] }) {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (canvas) {
+        canvas.removeEventListener('pointerdown', markInteracted);
+        canvas.removeEventListener('touchstart', markInteracted);
+        canvas.removeEventListener('mousedown', markInteracted);
+        canvas.removeEventListener('wheel', markInteracted);
+      }
     };
   }, [items]);
 
@@ -885,6 +963,8 @@ export default function InfiniteMenu({ items = [] }) {
     }
   };
 
+  const showDragHint = !hasInteracted && !isMoving;
+
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <canvas
@@ -894,6 +974,10 @@ export default function InfiniteMenu({ items = [] }) {
 
       {activeItem && (
         <>
+          <div className={`drag-hint ${showDragHint ? 'active' : 'inactive'}`} aria-hidden="true">
+            <p className="drag-hint-text">Swipe horizontally or drag to rotate the 3D gallery</p>
+          </div>
+
           <h2 className={`face-title ${isMoving ? 'inactive' : 'active'}`}>
             {activeItem.title}
           </h2>

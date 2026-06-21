@@ -7,6 +7,7 @@ const ProjectCard = ({ title, image, alt, onOpen, className = '' }) => {
   return (
     <div
       className={`visual-project-card ${className}`.trim()}
+      data-strip-card
       role={interactive ? 'button' : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={interactive ? onOpen : undefined}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { site, involvementStripItems } from '../../data/siteContent'
 import SiteNav from './SiteNav'
+import ResumeMonthTimeline from './ResumeMonthTimeline'
 import StatsStrip from './StatsStrip'
 import ProjectModal from './ProjectModal'
 import HeroSection from '../HeroSection'
@@ -15,6 +16,8 @@ export default function PortfolioPage() {
 
   return (
     <div className="portfolio">
+      <SiteNav />
+
       <div id="home" className="portfolio-home-anchor">
         <header className="portfolio-header">
           <h1>{site.name}</h1>
@@ -23,22 +26,20 @@ export default function PortfolioPage() {
         <div className="portfolio-hero-slot">
           <HeroSection />
         </div>
-        <p className="portfolio-hero-lead">{site.heroLead}</p>
+        {site.heroLead ? <p className="portfolio-hero-lead">{site.heroLead}</p> : null}
       </div>
-
-      <SiteNav />
 
       <main>
         <div className="portfolio-main">
           <section className="portfolio-section" id="about">
             <p className="portfolio-kicker">About</p>
-            <h2 className="portfolio-h2">{site.about.title}</h2>
+            {site.about.title ? <h2 className="portfolio-h2">{site.about.title}</h2> : null}
             {site.about.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
 
             <div className="profile-card">
-              <p>{site.about.profile.blurb}</p>
+              {site.about.profile.blurb ? <p>{site.about.profile.blurb}</p> : null}
               <ul className="profile-list">
                 {site.about.profile.bullets.map((b) => (
                   <li key={b.label}>
@@ -53,19 +54,6 @@ export default function PortfolioPage() {
               </ul>
             </div>
 
-            <p>{site.skillsIntro}</p>
-            {site.skills.map((s) => (
-              <div className="skill" key={s.name}>
-                <div className="skill-top">
-                  <span>{s.name}</span>
-                  <span>{s.percent}%</span>
-                </div>
-                <div className="skill-bar">
-                  <div className="skill-fill" style={{ width: `${s.percent}%` }} />
-                </div>
-              </div>
-            ))}
-
             <div className="cta-row">
               <a className="btn btn-primary" href={site.cta.hireHref}>
                 {site.cta.hireLabel}
@@ -75,9 +63,6 @@ export default function PortfolioPage() {
               </a>
             </div>
 
-            <div className="portfolio-about-visual">
-              <AboutSection cards={site.about.flipCards} asideText={site.about.cardAside} />
-            </div>
           </section>
 
           <section className="portfolio-section" id="resume">
@@ -85,7 +70,25 @@ export default function PortfolioPage() {
             <h2 className="portfolio-h2">{site.resume.title}</h2>
 
             <div className="timeline">
-              <h3>Work experience</h3>
+      
+
+              <h3>Education</h3>
+              {site.resume.education.map((ed) => (
+                <article className="timeline-item" key={`${ed.school}-${ed.dates}`}>
+                  <h4>{ed.degree}</h4>
+                  <div className="meta">
+                    {ed.dates} · <span className="org">{ed.school}</span>
+                  </div>
+                  {ed.major ? <p className="timeline-item__line">Majors: {ed.major}</p> : null}
+                  {ed.concentration ? (
+                    <p className="timeline-item__line">Concentration: {ed.concentration}</p>
+                  ) : null}
+                  {ed.honors ? <p className="timeline-item__line">Honors: {ed.honors}</p> : null}
+                  {ed.detail ? <p>{ed.detail}</p> : null}
+                </article>
+              ))}
+
+              <h3>Experience</h3>
               {site.resume.work.map((job) => (
                 <article className="timeline-item" key={`${job.org}-${job.dates}`}>
                   <h4>{job.role}</h4>
@@ -96,17 +99,47 @@ export default function PortfolioPage() {
                 </article>
               ))}
 
-              <h3>Education</h3>
-              {site.resume.education.map((ed) => (
-                <article className="timeline-item" key={`${ed.school}-${ed.dates}`}>
-                  <h4>{ed.degree}</h4>
+              <h3>Projects</h3>
+              {site.resume.projects.map((item) => (
+                <article className="timeline-item" key={`${item.org}-${item.dates}`}>
+                  <h4>{item.role}</h4>
                   <div className="meta">
-                    {ed.dates} · <span className="org">{ed.school}</span>
+                    {item.dates} · <span className="org">{item.org}</span>
                   </div>
-                  <p>{ed.detail}</p>
+                  <p>{item.detail}</p>
                 </article>
               ))}
+
+              <h3>Leadership &amp; Activities</h3>
+              {site.resume.leadership.map((item) => (
+                <article className="timeline-item" key={`${item.org}-${item.dates}`}>
+                  <h4>{item.role}</h4>
+                  <div className="meta">
+                    {item.dates} · <span className="org">{item.org}</span>
+                  </div>
+                  <p>{item.detail}</p>
+                </article>
+              ))}
+
+              <h3>Skills</h3>
+              <div className="resume-skills">
+                {site.resume.skills.map((group) => (
+                  <div className="resume-skills__group" key={group.category}>
+                    <h4 className="resume-skills__category">{group.category}</h4>
+                    <p className="resume-skills__items">{group.items.join(', ')}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            <ResumeMonthTimeline
+              experiences={site.resume.monthlyExperiences}
+              intro={site.resume.monthlyTimelineIntro}
+            />
+
+            {/* <div className="portfolio-about-visual">
+              <AboutSection cards={site.about.flipCards} asideText={site.about.cardAside} />
+            </div> */}
           </section>
 
           <section className="portfolio-section portfolio-section--work" id="work">
@@ -133,8 +166,8 @@ export default function PortfolioPage() {
         <div className="portfolio-main">
           <section className="portfolio-section" id="contact">
             <p className="portfolio-kicker">Contact</p>
-            <h2 className="portfolio-h2">{site.contact.title}</h2>
-            <p>{site.contact.intro}</p>
+            {site.contact.title ? <h2 className="portfolio-h2">{site.contact.title}</h2> : null}
+            {site.contact.intro ? <p>{site.contact.intro}</p> : null}
             <div className="contact-grid">
               <div className="contact-block">
                 <h3>Where to find me</h3>
@@ -162,7 +195,7 @@ export default function PortfolioPage() {
       </main>
 
       <footer className="portfolio-footer">
-        © {new Date().getFullYear()} {site.name}. Built with React & Vite.
+        © {new Date().getFullYear()} {site.name}
       </footer>
 
       <ProjectModal project={modalProject} onClose={() => setModalProject(null)} />
