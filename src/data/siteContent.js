@@ -282,10 +282,10 @@ export const site = {
       {
         title: 'QA Analytical Platform',
         summary:
-          "Built a Flask + React admin/expert application with an anchor-Item-Response-Theory (1PL/Rasch) backend that lets admin/expert import QA items, assign/send questions to participants, view metadata, monitor participant engagement, and review participants' answers.",
+          "Built a Flask + React admin/expert application with an anchor-Item-Response-Theory (2PL) backend that lets admin/expert import QA items, assign/send questions to participants, view metadata, monitor participant engagement, and review participants' answers.",
         readMoreText: [
           'Each route of the platform API is a thin controller that opens a SQLAlchemy session over Supabase Postgres and delegates to a service module.',
-          'Built an anchor-IRT algorithm in the backend for assigning questions. Used a transparent 1PL/Rasch MAP estimator that treats participants as respondents and QA items as test items to jointly estimate participant ability and item difficulty, and uses Fisher information to drive adaptive question selection, recommending the item that is most informative for a participant of a given ability.',
+          'Built an anchor-IRT algorithm in the backend for assigning questions. Used a transparent 2PL MAP estimator that treats participants as respondents and QA items as test items to jointly estimate participant ability, item difficulty, and item discrimination, and uses Fisher information to drive adaptive question selection, recommending the item that is most informative for a participant of a given ability.',
           'Functionally, admins import questions from JSON, manage QA items with full CRUD, per-item stats, responses, assignments, and open/MCQ/TF types. They can also view an analytics dashboard aggregating participant and response counts, average correctness, flag rates, and coverage against targets.',
           'Experts record per-language question audio and review flagged responses. All participant audio and recordings are served through an authenticated media proxy, and data can be exported as responses CSV or zipped audio archives.',
         ],
