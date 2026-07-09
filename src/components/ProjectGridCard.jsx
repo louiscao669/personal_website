@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import BorderGlow from './ui/BorderGlow/BorderGlow'
 import { normalizeProjectLinks } from '../utils/projectLinks'
 import '../styles/project-grid.css'
 
@@ -31,13 +32,18 @@ export default function ProjectGridCard({
   image,
   alt,
   links = [],
+  paper,
+  readMoreText,
+  onReadMore,
   onOpen,
   className = '',
 }) {
   const interactive = typeof onOpen === 'function'
+  const hasReadMore = Boolean(readMoreText && onReadMore)
+  const hasPaper = Boolean(paper?.href)
   const normalizedLinks = useMemo(() => normalizeProjectLinks(links), [links])
 
-  return (
+  const card = (
     <article
       className={`project-grid-card ${className}`.trim()}
       role={interactive ? 'button' : undefined}
@@ -70,7 +76,19 @@ export default function ProjectGridCard({
       <div className="project-grid-card__body">
         <h3 className="project-grid-card__title">{title}</h3>
         {summary ? <p className="project-grid-card__summary">{summary}</p> : null}
-        {normalizedLinks.length > 0 ? (
+        {hasReadMore ? (
+          <button
+            className="project-grid-card__read-more"
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation()
+              onReadMore()
+            }}
+          >
+            Click to read more
+          </button>
+        ) : null}
+        {normalizedLinks.length > 0 || hasPaper ? (
           <div className="project-grid-card__links" onClick={(e) => e.stopPropagation()}>
             {normalizedLinks.map((link) => (
               <a
@@ -85,9 +103,37 @@ export default function ProjectGridCard({
                 <ProjectLinkIcon type={link.icon} />
               </a>
             ))}
+            {hasPaper ? (
+              <a
+                className="project-grid-card__paper-button"
+                href={paper.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {paper.label}
+              </a>
+            ) : null}
           </div>
         ) : null}
       </div>
     </article>
+  )
+
+  return (
+    <BorderGlow
+      className="project-grid-card-glow"
+      edgeSensitivity={24}
+      glowColor="174 72 56"
+      backgroundColor="#ffffff"
+      borderRadius={16}
+      glowRadius={76}
+      glowIntensity={3}
+      coneSpread={42}
+      animated={false}
+      colors={['#0f766e', '#38bdf8', '#f472b6']}
+      fillOpacity={0.4}
+    >
+      {card}
+    </BorderGlow>
   )
 }

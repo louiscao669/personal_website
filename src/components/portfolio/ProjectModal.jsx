@@ -10,6 +10,7 @@ export default function ProjectModal({ project, onClose }) {
   }, [onClose])
 
   if (!project) return null
+  const paragraphs = Array.isArray(project.summary) ? project.summary : [project.summary]
 
   return (
     <div
@@ -24,7 +25,9 @@ export default function ProjectModal({ project, onClose }) {
           Close
         </button>
         <h3 id="project-modal-title">{project.title}</h3>
-        <p>{project.summary}</p>
+        {paragraphs.map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
         {project.links?.length > 0 ? (
           <div className="portfolio-modal-links">
             {project.links.map((link) => (

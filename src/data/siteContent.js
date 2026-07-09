@@ -41,6 +41,7 @@ export const site = {
     hireHref: 'mailto:lcao4@nd.edu',
     cvLabel: 'Download CV',
     cvHref: 'https://drive.google.com/file/d/1RqKcOh-WdmTt7oSVxjCwQ5F7vTSvMu5_/view?usp=drive_link',
+    cvDownloadHref: 'https://drive.google.com/uc?export=download&id=1RqKcOh-WdmTt7oSVxjCwQ5F7vTSvMu5_',
   },
 
   resume: {
@@ -157,7 +158,7 @@ export const site = {
       },
       {
         id: 'hci-privacy',
-        startMonth: '2025-01',
+        startMonth: '2025-01', 
         endMonth: '2025-04',
         color: '#c93d4a',
         category: 'work',
@@ -225,10 +226,9 @@ export const site = {
 
   /** Same entries power the résumé line items and the horizontal involvement strip. */
   work: {
-    kicker: 'Portfolio',
-    title: 'Projects & involvements',
-    intro:
-      'The same story as above, in the original wide format: scrub horizontally, flip tabs, and explore the 3D interests menu—all styled to match the rest of the site.',
+    kicker: '',
+    title: 'Projects',
+    intro: '',
   },
 
   projects: {
@@ -249,11 +249,48 @@ export const site = {
         title: 'Distributed Prediction Market Platform (YCombinator)',
         summary:
           'Built a forecasting platform with a Kafka-based AWS backend, React/Next.js market UI, and a read-optimized MySQL/Redis data layer with leader failover and reliable transaction handling.',
+        readMoreText: [
+          'Designed an asynchronous, event-driven architecture using Kafka/MSK clusters on AWS for operation polling.',
+          'Deployed 12 FastAPI services across EC2 behind a load balancer, distributing workloads by assigning each server a dedicated task type. Built a read-optimized MySQL cluster with one leader and four read replicas, including automatic leader failover. Deployed a Redis cache to reduce database load and read latency.',
+          'Built a React/Vite frontend for sign-in, user dashboards, organization management, event dashboards, and market trading pages. Architected core business backend for users, organizations, events, markets, permissions, token balances, transactions, payouts, quotes, and analytics, along with seed data and benchmark scripts.',
+        ],
         image: 'https://i.postimg.cc/0Qnn513j/Screenshot-2026-06-21-at-5-28-04-PM.png',
+        alt: 'Prediction market platform interface screenshot',
+        paper: {
+          label: 'Project paper',
+          href: 'https://drive.google.com/file/d/1FJFq60kMv0CQRQydHWGdJTypmei-WZEM/view?usp=drive_link',
+        },
+        links: [
+          { label: 'GitHub', href: 'https://github.com/louiscao669/Polaris', icon: 'github' },
+        ],
+      },
+      {
+        title: 'Peer-to-Peer Distributed File Replication System',
+        summary:
+          'In my distributed systems course, I built a fault-tolerant Bit-Torrent-style P2P file replication system.',
+        readMoreText: [
+          'The system has several nodes that replicate files from each other. Each node runs an identical peer that combines a storage server and client to share files across multiple machines.',
+          'I implemented a persistent, crash-recoverable hash-table store using disk-backed data with atomic checkpoint and log file. I also designed an event-driven server using epoll to concurrently serve and download files across many simultaneous connections with dynamic peer discovery through a network name service.',
+          'Further, I designed transparent fault tolerance via idempotent RPC operations and exponential-backoff retry, along with a randomized, load-balanced download policy to eliminate single points of failure.',
+        ],
+        image: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fec9cdb4b851c46579175de39d08275c9',
         alt: 'Prediction market platform interface screenshot',
         links: [
           { label: 'GitHub', href: 'https://github.com/louiscao669/Polaris', icon: 'github' },
         ],
+      },
+      {
+        title: 'QA Analytical Platform',
+        summary:
+          "Built a Flask + React admin/expert application with an anchor-Item-Response-Theory (1PL/Rasch) backend that lets admin/expert import QA items, assign/send questions to participants, view metadata, monitor participant engagement, and review participants' answers.",
+        readMoreText: [
+          'Each route of the platform API is a thin controller that opens a SQLAlchemy session over Supabase Postgres and delegates to a service module.',
+          'Built an anchor-IRT algorithm in the backend for assigning questions. Used a transparent 1PL/Rasch MAP estimator that treats participants as respondents and QA items as test items to jointly estimate participant ability and item difficulty, and uses Fisher information to drive adaptive question selection, recommending the item that is most informative for a participant of a given ability.',
+          'Functionally, admins import questions from JSON, manage QA items with full CRUD, per-item stats, responses, assignments, and open/MCQ/TF types. They can also view an analytics dashboard aggregating participant and response counts, average correctness, flag rates, and coverage against targets.',
+          'Experts record per-language question audio and review flagged responses. All participant audio and recordings are served through an authenticated media proxy, and data can be exported as responses CSV or zipped audio archives.',
+        ],
+        alt: 'QA Analytical Platform project preview',
+        links: [],
       },
     ],
   },
@@ -283,14 +320,30 @@ export const site = {
           'https://i.postimg.cc/tCMxkXNV/IMG-8921.jpg',
         link: 'https://i.postimg.cc/tCMxkXNV/IMG-8921.jpg',
         title: 'Service',
-        description: 'Spent 2 months and 1300+ hours in serving the Philadelphia community',
+        description: 'Spent 1500+ hours serving communities in South Bend and Philadelphia',
+        showReadMore: true,
+        readMoreHref: '#/service',
+      },
+      {
+        image:
+          'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
+        link: 'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
+        title: 'Fellowship',
+        description: 'Time with my fellowhip that I spend 5+ hours a week with',
       },
       {
         image:
           'https://i.postimg.cc/7Yd57Kqq/a01973f2a268fced3544127d59fcabd0.jpg',
         link: 'https://i.postimg.cc/7Yd57Kqq/a01973f2a268fced3544127d59fcabd0.jpg',
         title: 'Church',
-        description: 'Staying grounded with my faith',
+        description: 'Staying grounded in my faith and serving my church',
+      },
+      {
+        image:
+          'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
+        link: 'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
+        description: 'My favorite sport since I was 7 has taught me teamwork, concentration under stress, and courage...',
+        title: 'Soccer',
       },
       {
         image:
@@ -300,57 +353,39 @@ export const site = {
       },
       {
         image:
-          'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
-        link: 'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
-        title: 'Fellowship',
-        description: 'Time with the fellowhip I spend 5+ hours a week with',
-      },
-      {
-        image:
-          'https://i.postimg.cc/8Cv8wrdx/321dc3a84b2606d4ec83577cc6ed0e2b.jpg',
-        link: 'https://i.postimg.cc/8Cv8wrdx/321dc3a84b2606d4ec83577cc6ed0e2b.jpg',
-        title: 'Hiking',
-      },
-      {
-        image:
-          'https://api.builder.io/api/v1/image/assets/TEMP/17de13a8711d29a39425f4ea7b220c88910cee8e?width=578',
-        link: 'https://api.builder.io/api/v1/image/assets/TEMP/17de13a8711d29a39425f4ea7b220c88910cee8e?width=578',
-        title: 'Rowing',
-        description: 'Who doesn\'t like kayak?',
-      },
-      {
-        image:
-          'https://api.builder.io/api/v1/image/assets/TEMP/e881db67cc2243b2f9c381757729571b5ffae4aa?width=452',
-        link: 'https://api.builder.io/api/v1/image/assets/TEMP/e881db67cc2243b2f9c381757729571b5ffae4aa?width=452',
-        title: 'Basketball',
-      },
-      {
-        image:
-          'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
-        link: 'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
-        title: 'Soccer',
-      },
-      {
-        image:
-          'https://i.postimg.cc/4xTpnDLZ/IMG-4901.jpg',
-        link: 'https://i.postimg.cc/4xTpnDLZ/IMG-4901.jpg',
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F0d88d53327eb415b829245f89e174361',
+        link: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F0d88d53327eb415b829245f89e174361',
         title: 'Performance',
         description: 'Performing in Notre Dame CSSA spring gala',
       },
+      {
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F719f41c85513411bb6b767b09a6c6aac',
+        link: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F719f41c85513411bb6b767b09a6c6aac',
+        title: 'Hiking',
+        imageRotation: -90,
+      },
+      {
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F997df4c0f8714583b4d14bad21d3f6ad',
+        link: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F997df4c0f8714583b4d14bad21d3f6ad',
+        title: 'Basketball',
+      }
       
     ],
   },
 
   stats: [
-    { value: 15, suffix: '+', label: 'Projects shipped' },
+    { value: 15, suffix: '+', label: 'Projects' },
     { value: 3, suffix: '', label: 'Awards / honors' },
     { value: 1000, suffix: '+', label: 'Hours coding' },
     { value: 100, suffix: '+', label: 'Books read' },
   ],
 
   contact: {
-    title: '',
-    intro: '',
+    title: 'Contact me',
+    intro:
+      'Have a research idea, software project, or internship opportunity in mind? Send a note and I will get back to you.',
     location: 'Notre Dame, IN',
     email: 'lcao4@nd.edu',
     social: [

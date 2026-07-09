@@ -12,8 +12,13 @@
 }
 
 .portfolio .portfolio-hero-slot .hero-section {
-  height: min(72vh, 900px);
-  min-height: 420px;
+  height: auto;
+  min-height: clamp(420px, 58vh, 680px);
+  box-shadow:
+    0 22px 44px rgba(21, 21, 21, 0.22),
+    0 8px 18px rgba(21, 21, 21, 0.16);
+  position: relative;
+  z-index: 1;
 }
 
 .portfolio .portfolio-hero-slot .hero-overlay {
@@ -134,7 +139,7 @@
   min-height: 0;
 }
 
-/* Integrated projects: 2-column grid until the list is long enough to need a strip */
+/* Integrated projects: vertical page flow. Involvements keep the horizontal strip. */
 .portfolio .projects-section.projects-section--integrated,
 .portfolio .involvements-section.involvements-section--integrated {
   position: relative;
@@ -155,7 +160,6 @@
   margin-top: 0.5rem;
 }
 
-.portfolio .projects-section--integrated .projects-scroll-container,
 .portfolio .involvements-section--integrated .projects-scroll-container {
   position: relative;
   left: auto;
@@ -172,7 +176,6 @@
   container-type: inline-size;
 }
 
-.portfolio .projects-section--integrated .projects-grid-display--scroll,
 .portfolio .involvements-section--integrated .projects-grid-display--scroll {
   display: flex;
   grid-template-columns: none;
@@ -182,9 +185,19 @@
   padding: 1.25rem;
 }
 
-.portfolio .projects-section--integrated .projects-grid-display--scroll .project-grid-card,
 .portfolio .involvements-section--integrated .projects-grid-display--scroll .project-grid-card {
   flex: 0 0 clamp(17rem, calc((100cqw - 2.5rem) / 2.35), 28rem);
+}
+
+.portfolio .projects-section--integrated .projects-grid-display--vertical {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.portfolio .projects-section--integrated .projects-grid-display--vertical .project-grid-card {
+  width: 100%;
 }
 
 .portfolio .projects-section--integrated .project-grid-card__title,
@@ -228,7 +241,6 @@
   overflow: visible;
 }
 
-.portfolio .projects-section--integrated .strip-scroll-outer.has-scroll-affordance,
 .portfolio .involvements-section--integrated .strip-scroll-outer.has-scroll-affordance {
   --scroll-fade-bg: var(--card);
 }
@@ -239,19 +251,30 @@
 }
 
 @media (max-width: 720px) {
-  .portfolio .projects-section--integrated .projects-grid-display--scroll .project-grid-card,
   .portfolio .involvements-section--integrated .projects-grid-display--scroll .project-grid-card {
     flex-basis: calc((100cqw - 1rem) / 1.18);
   }
 }
 
 /* Interests */
+.portfolio-interests-page {
+  width: 100%;
+  background: #ffffff;
+}
+
+.portfolio-section.portfolio-section--interests-full {
+  padding-top: 0;
+  width: 100%;
+  background: #ffffff;
+}
+
 .portfolio .interests-section.interests-section--integrated {
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin-top: 0.5rem;
-  overflow-x: hidden;
+  min-height: calc(100vh - 5.25rem);
+  margin-top: 0;
+  overflow: hidden;
 }
 
 .portfolio .interests-section--integrated .interests-title {
@@ -259,21 +282,19 @@
 }
 
 .portfolio .interests-section--integrated .interests-gallery {
-  height: min(560px, 70vh);
-  min-height: 380px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  height: calc(100vh - 5.25rem);
+  min-height: 520px;
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
-  background: var(--header);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5rem;
+  box-sizing: border-box;
 }
 
 .portfolio .interests-gallery .drag-hint-text {
   color: #ffffff;
-}
-
-.portfolio-section--work .portfolio-work-intro {
-  color: var(--muted);
-  line-height: 1.65;
-  max-width: 40rem;
-  margin-bottom: 1rem;
 }

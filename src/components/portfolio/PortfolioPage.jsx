@@ -1,198 +1,252 @@
-import React, { useState } from 'react'
-import { site, involvementStripItems } from '../../data/siteContent'
-import SiteNav from './SiteNav'
-import ResumeMonthTimeline from './ResumeMonthTimeline'
+import React, { useEffect, useState } from 'react'
+import { site } from '../../data/siteContent'
+import SiteNav, { NAV_ITEMS } from './SiteNav'
 import StatsStrip from './StatsStrip'
 import ProjectModal from './ProjectModal'
 import HeroSection from '../HeroSection'
-import AboutSection from '../AboutSection'
-import ExperienceTabs from '../ExperienceTabs'
 import InterestsSection from '../InterestsSection'
+import ProjectsSection from '../ProjectsSection'
+import ServiceTimelinePage from '../ServiceTimelinePage'
 import '../../styles/portfolio-site.css'
 import '../../styles/portfolio-unified.css'
 
-export default function PortfolioPage() {
-  const [modalProject, setModalProject] = useState(null)
+const PATH_ALIASES = {
+  '/home': '/',
+  '/work': '/projects',
+  '/about': '/contact',
+  '/resume': '/contact',
+}
 
+const normalisePath = (path) => {
+  const cleanPath = path || '/'
+  const withoutTrailingSlash = cleanPath.length > 1 ? cleanPath.replace(/\/+$/, '') : cleanPath
+  return PATH_ALIASES[withoutTrailingSlash] || withoutTrailingSlash
+}
+
+const getPathFromLocation = () => {
+  const hashPath = window.location.hash.replace(/^#/, '')
+  if (!hashPath) return '/'
+  return normalisePath(hashPath.startsWith('/') ? hashPath : `/${hashPath}`)
+}
+
+const getNavItemByPath = (path) => {
+  const normalisedPath = normalisePath(path)
+  if (normalisedPath === '/service') {
+    return { id: 'service', label: 'Service', path: '/service' }
+  }
+
+  return NAV_ITEMS.find((item) => item.path === normalisedPath) || NAV_ITEMS[0]
+}
+
+function HomePageContent() {
   return (
-    <div className="portfolio">
-      <SiteNav />
-
+    <>
       <div id="home" className="portfolio-home-anchor">
-        <header className="portfolio-header">
-          <h1>{site.name}</h1>
-          <p className="tagline">{site.headline}</p>
-        </header>
         <div className="portfolio-hero-slot">
           <HeroSection />
         </div>
         {site.heroLead ? <p className="portfolio-hero-lead">{site.heroLead}</p> : null}
       </div>
+      <StatsStrip stats={site.stats} />
+    </>
+  )
+}
 
-      <main>
-        <div className="portfolio-main">
-          <section className="portfolio-section" id="about">
-            <p className="portfolio-kicker">About</p>
-            {site.about.title ? <h2 className="portfolio-h2">{site.about.title}</h2> : null}
-            {site.about.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+function AboutContactIntro() {
+  return (
+    <section className="portfolio-section about-contact-intro" id="about">
+      <p className="portfolio-kicker">About</p>
+      {site.about.title ? <h2 className="portfolio-h2">{site.about.title}</h2> : null}
+      {site.about.paragraphs.map((p, i) => (
+        <p key={i}>{p}</p>
+      ))}
 
-            <div className="profile-card">
-              {site.about.profile.blurb ? <p>{site.about.profile.blurb}</p> : null}
-              <ul className="profile-list">
-                {site.about.profile.bullets.map((b) => (
-                  <li key={b.label}>
-                    <strong>{b.label}</strong>
-                    {b.href ? (
-                      <a href={b.href}>{b.value}</a>
-                    ) : (
-                      <span>{b.value}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+      <div className="profile-card">
+        {site.about.profile.blurb ? <p>{site.about.profile.blurb}</p> : null}
+        <ul className="profile-list">
+          {site.about.profile.bullets.map((b) => (
+            <li key={b.label}>
+              <strong>{b.label}</strong>
+              {b.href ? <a href={b.href}>{b.value}</a> : <span>{b.value}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-            <div className="cta-row">
-              <a className="btn btn-primary" href={site.cta.hireHref}>
-                {site.cta.hireLabel}
-              </a>
-              <a className="btn btn-outline" href={site.cta.cvHref}>
-                {site.cta.cvLabel}
-              </a>
-            </div>
+      <div className="cta-row">
+        <a className="btn btn-primary" href={site.cta.hireHref}>
+          {site.cta.hireLabel}
+        </a>
+      </div>
+    </section>
+  )
+}
 
-          </section>
+function ProjectsPage({ onSelectProject }) {
+  return (
+    <main>
+      <div className="portfolio-main">
+        <section className="portfolio-section portfolio-section--work" id="work">
+          <h2 className="portfolio-h2">{site.work.title}</h2>
+          <ProjectsSection
+            items={site.projects.items}
+            hideTitle
+            integrated
+            onSelectProject={onSelectProject}
+          />
+        </section>
+      </div>
+    </main>
+  )
+}
 
-          <section className="portfolio-section" id="resume">
-            <p className="portfolio-kicker">Resume</p>
-            <h2 className="portfolio-h2">{site.resume.title}</h2>
+function InterestsPage() {
+  return (
+    <main className="portfolio-interests-page">
+      <section className="portfolio-section portfolio-section--interests-full" id="interests">
+        <InterestsSection items={site.interests.items} integrated />
+      </section>
+    </main>
+  )
+}
 
-            <div className="timeline">
-      
+function ServicePage() {
+  return (
+    <>
+      <InterestsPage />
+      <ServiceTimelinePage />
+    </>
+  )
+}
 
-              <h3>Education</h3>
-              {site.resume.education.map((ed) => (
-                <article className="timeline-item" key={`${ed.school}-${ed.dates}`}>
-                  <h4>{ed.degree}</h4>
-                  <div className="meta">
-                    {ed.dates} · <span className="org">{ed.school}</span>
+function ContactPage() {
+  const handleContactSubmit = (event) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const name = formData.get('name')?.toString().trim() || 'Website visitor'
+    const subject =
+      formData.get('subject')?.toString().trim() || `Portfolio inquiry from ${name}`
+    const message = formData.get('message')?.toString().trim() || ''
+    const body = [message, '', name].join('\n')
+
+    window.location.href = `mailto:${site.contact.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`
+  }
+
+  return (
+    <main>
+      <div className="portfolio-main">
+        <section className="portfolio-section contact-section" id="contact">
+          <div className="contact-layout">
+            <div className="contact-copy">
+              <p className="portfolio-kicker">Contact</p>
+              {site.contact.title ? <h2 className="portfolio-h2">{site.contact.title}</h2> : null}
+              {site.contact.intro ? <p>{site.contact.intro}</p> : null}
+
+              <div className="contact-grid">
+                <div className="contact-block">
+                  <h3>Where to find me</h3>
+                  <p>{site.contact.location}</p>
+                </div>
+                <div className="contact-block">
+                  <h3>Email</h3>
+                  <p>
+                    <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+                  </p>
+                </div>
+                <div className="contact-block">
+                  <h3>Let&apos;s connect</h3>
+                  <div className="contact-links">
+                    {site.contact.social.map((s) => (
+                      <a key={s.label} href={s.href} target="_blank" rel="noreferrer">
+                        {s.label}
+                      </a>
+                    ))}
                   </div>
-                  {ed.major ? <p className="timeline-item__line">Majors: {ed.major}</p> : null}
-                  {ed.concentration ? (
-                    <p className="timeline-item__line">Concentration: {ed.concentration}</p>
-                  ) : null}
-                  {ed.honors ? <p className="timeline-item__line">Honors: {ed.honors}</p> : null}
-                  {ed.detail ? <p>{ed.detail}</p> : null}
-                </article>
-              ))}
-
-              <h3>Experience</h3>
-              {site.resume.work.map((job) => (
-                <article className="timeline-item" key={`${job.org}-${job.dates}`}>
-                  <h4>{job.role}</h4>
-                  <div className="meta">
-                    {job.dates} · <span className="org">{job.org}</span>
-                  </div>
-                  <p>{job.detail}</p>
-                </article>
-              ))}
-
-              <h3>Projects</h3>
-              {site.resume.projects.map((item) => (
-                <article className="timeline-item" key={`${item.org}-${item.dates}`}>
-                  <h4>{item.role}</h4>
-                  <div className="meta">
-                    {item.dates} · <span className="org">{item.org}</span>
-                  </div>
-                  <p>{item.detail}</p>
-                </article>
-              ))}
-
-              <h3>Leadership &amp; Activities</h3>
-              {site.resume.leadership.map((item) => (
-                <article className="timeline-item" key={`${item.org}-${item.dates}`}>
-                  <h4>{item.role}</h4>
-                  <div className="meta">
-                    {item.dates} · <span className="org">{item.org}</span>
-                  </div>
-                  <p>{item.detail}</p>
-                </article>
-              ))}
-
-              <h3>Skills</h3>
-              <div className="resume-skills">
-                {site.resume.skills.map((group) => (
-                  <div className="resume-skills__group" key={group.category}>
-                    <h4 className="resume-skills__category">{group.category}</h4>
-                    <p className="resume-skills__items">{group.items.join(', ')}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <ResumeMonthTimeline
-              experiences={site.resume.monthlyExperiences}
-              intro={site.resume.monthlyTimelineIntro}
-            />
-
-            {/* <div className="portfolio-about-visual">
-              <AboutSection cards={site.about.flipCards} asideText={site.about.cardAside} />
-            </div> */}
-          </section>
-
-          <section className="portfolio-section portfolio-section--work" id="work">
-            <p className="portfolio-kicker">{site.work.kicker}</p>
-            <h2 className="portfolio-h2">{site.work.title}</h2>
-            <p className="portfolio-work-intro">{site.work.intro}</p>
-            <ExperienceTabs
-              projectItems={site.projects.items}
-              involvementItems={involvementStripItems(site.activities)}
-              onSelectProject={setModalProject}
-            />
-          </section>
-
-          <section className="portfolio-section" id="interests">
-            <p className="portfolio-kicker">Interests</p>
-            <h2 className="portfolio-h2">{site.interests.title}</h2>
-            <p>{site.interests.intro}</p>
-            <InterestsSection items={site.interests.items} integrated />
-          </section>
-        </div>
-
-        <StatsStrip stats={site.stats} />
-
-        <div className="portfolio-main">
-          <section className="portfolio-section" id="contact">
-            <p className="portfolio-kicker">Contact</p>
-            {site.contact.title ? <h2 className="portfolio-h2">{site.contact.title}</h2> : null}
-            {site.contact.intro ? <p>{site.contact.intro}</p> : null}
-            <div className="contact-grid">
-              <div className="contact-block">
-                <h3>Where to find me</h3>
-                <p>{site.contact.location}</p>
-              </div>
-              <div className="contact-block">
-                <h3>Email</h3>
-                <p>
-                  <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-                </p>
-              </div>
-              <div className="contact-block">
-                <h3>Let&apos;s connect</h3>
-                <div className="contact-links">
-                  {site.contact.social.map((s) => (
-                    <a key={s.label} href={s.href} target="_blank" rel="noreferrer">
-                      {s.label}
-                    </a>
-                  ))}
                 </div>
               </div>
             </div>
-          </section>
-        </div>
-      </main>
+
+            <form className="contact-form" onSubmit={handleContactSubmit}>
+              <div className="contact-form__row">
+                <label htmlFor="contact-name">Name</label>
+                <input id="contact-name" name="name" type="text" autoComplete="name" required />
+              </div>
+              <div className="contact-form__row">
+                <label htmlFor="contact-email">Email</label>
+                <input id="contact-email" name="email" type="email" autoComplete="email" required />
+              </div>
+              <div className="contact-form__row">
+                <label htmlFor="contact-subject">Subject</label>
+                <input id="contact-subject" name="subject" type="text" />
+              </div>
+              <div className="contact-form__row">
+                <label htmlFor="contact-message">Message</label>
+                <textarea id="contact-message" name="message" rows="6" required />
+              </div>
+              <button className="btn btn-primary contact-form__submit" type="submit">
+                Contact Me
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+  )
+}
+
+export default function PortfolioPage() {
+  const [modalProject, setModalProject] = useState(null)
+  const [currentPath, setCurrentPath] = useState(getPathFromLocation)
+
+  const currentNavItem = getNavItemByPath(currentPath)
+
+  useEffect(() => {
+    const syncRoute = () => {
+      setCurrentPath(getPathFromLocation())
+    }
+
+    window.addEventListener('hashchange', syncRoute)
+    return () => window.removeEventListener('hashchange', syncRoute)
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [currentNavItem.id])
+
+  const navigate = (path) => {
+    const nextPath = normalisePath(path)
+    if (nextPath === currentPath) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+      return
+    }
+
+    window.location.hash = nextPath
+  }
+
+  const renderPage = () => {
+    switch (currentNavItem.id) {
+      case 'work':
+        return <ProjectsPage onSelectProject={setModalProject} />
+      case 'interests':
+        return <InterestsPage />
+      case 'service':
+        return <ServicePage />
+      case 'contact':
+        return <ContactPage />
+      case 'home':
+      default:
+        return <HomePageContent />
+    }
+  }
+
+  return (
+    <div className={`portfolio portfolio-page--${currentNavItem.id}`}>
+      <SiteNav activePage={currentNavItem.id} onNavigate={navigate} />
+
+      {renderPage()}
 
       <footer className="portfolio-footer">
         © {new Date().getFullYear()} {site.name}

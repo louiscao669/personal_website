@@ -1,22 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import gsap from 'gsap'
+import PillNav from './PillNav'
+import logo from '../../assets/louis-cao-logo.svg'
 
-const NAV = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'resume', label: 'Resume' },
-  { id: 'work', label: 'Projects' },
-  { id: 'interests', label: 'Interests' },
-  { id: 'contact', label: 'Contact' },
+export const NAV_ITEMS = [
+  { id: 'home', label: 'Home', path: '/' },
+  { id: 'work', label: 'Projects', path: '/projects' },
+  { id: 'interests', label: 'Interests', path: '/interests' },
+  { id: 'contact', label: 'Contact', path: '/contact' },
 ]
 
 const SCROLL_DELTA = 6
 
-export default function SiteNav() {
-  const [active, setActive] = useState('home')
+export const getRouteHref = (path) => `#${path}`
+
+export default function SiteNav({ activePage }) {
   const [scrollHidden, setScrollHidden] = useState(false)
+  const [hoverReveal, setHoverReveal] = useState(false)
   const [navHeight, setNavHeight] = useState(0)
   const navRef = useRef(null)
   const lastScrollY = useRef(0)
+  const prefersReducedMotion = useRef(false)
+  const activeItem = NAV_ITEMS.find((item) => item.id === activePage) || NAV_ITEMS[0]
+  const items = useMemo(
+    () => NAV_ITEMS.map((item) => ({ label: item.label, href: getRouteHref(item.path) })),
+    [],
+  )
 
   useEffect(() => {
     const measureNav = () => {
@@ -25,6 +34,10 @@ export default function SiteNav() {
     measureNav()
     window.addEventListener('resize', measureNav)
     return () => window.removeEventListener('resize', measureNav)
+  }, [])
+
+  useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   }, [])
 
   useEffect(() => {
@@ -40,47 +53,58 @@ export default function SiteNav() {
       }
 
       lastScrollY.current = y
-
-      const sectionProbe = y + navHeight + 80
-      let current = 'home'
-      for (const item of NAV) {
-        const el = document.getElementById(item.id)
-        if (el) {
-          const top = el.offsetTop
-          if (sectionProbe >= top) current = item.id
-        }
-      }
-      setActive(current)
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
-  }, [navHeight])
+  }, [])
 
-  const go = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
+  useEffect(() => {
+    if (!navRef.current) return
+
+    gsap.to(navRef.current, {
+      yPercent: scrollHidden && !hoverReveal ? -115 : 0,
+      duration: prefersReducedMotion.current ? 0 : 0.35,
+      ease: 'power3.out',
+      overwrite: true,
+    })
+  }, [scrollHidden, hoverReveal])
+
+  const collapseSpacer = activePage === 'home'
 
   return (
-    <div className="portfolio-nav-sticky-root">
+    <div
+      className={`portfolio-nav-sticky-root${collapseSpacer ? ' has-collapsed-spacer' : ''}${
+        activePage === 'interests' ? ' is-interests' : ''
+      }`}
+    >
       <div className="portfolio-nav-spacer" style={{ height: navHeight }} aria-hidden="true" />
       <div
+        className="portfolio-nav-hover-zone"
+        aria-hidden="true"
+        onMouseEnter={() => setHoverReveal(true)}
+      />
+      <div
         ref={navRef}
-        className={`portfolio-nav-wrap is-fixed${scrollHidden ? ' is-scroll-hidden' : ''}`}
+        className={`portfolio-nav-wrap is-fixed${scrollHidden ? ' is-scroll-hidden' : ''}${
+          hoverReveal ? ' is-hover-revealed' : ''
+        }`}
+        onMouseEnter={() => setHoverReveal(true)}
+        onMouseLeave={() => setHoverReveal(false)}
       >
-        <nav className="portfolio-nav" aria-label="Primary">
-          {NAV.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={item.id === active ? 'is-active' : ''}
-              onClick={() => go(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
+        <PillNav
+          logo={logo}
+          logoAlt="Louis Cao"
+          items={items}
+          activeHref={getRouteHref(activeItem.path)}
+          ease="power3.easeOut"
+          baseColor="#151515"
+          pillColor="#f4f4f2"
+          hoveredPillTextColor="#f4f4f2"
+          pillTextColor="#151515"
+          initialLoadAnimation
+        />
       </div>
     </div>
   )

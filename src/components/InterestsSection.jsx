@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/InterestsSection.css'
-import InfiniteMenu from '../blocks/Components/InfiniteMenu/InfiniteMenu'
+import Carousel from './ui/carousel'
 
 const defaultItems = [
   {
@@ -27,11 +27,20 @@ const defaultItems = [
 ]
 
 const InterestsSection = ({ items = defaultItems, integrated = false }) => {
+  const slides = items.map((item) => ({
+    title: item.title,
+    description: item.description,
+    showReadMore: item.showReadMore,
+    readMoreHref: item.readMoreHref,
+    imageRotation: item.imageRotation,
+    src: item.image,
+  }))
+
   return (
     <section className={`interests-section ${integrated ? 'interests-section--integrated' : ''}`.trim()}>
       {!integrated && <h2 className="interests-title">Interests</h2>}
       <div className="interests-gallery">
-        <InfiniteMenu items={items} />
+        <Carousel slides={slides} />
       </div>
     </section>
   )
