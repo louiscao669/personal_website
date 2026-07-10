@@ -292,6 +292,127 @@ export const site = {
         alt: 'QA Analytical Platform project preview',
         links: [],
       },
+      {
+        title: 'Gamified Answer Collection and Engagement Dashboard',
+        summary:
+          'Built a Duolingo-inspired QA response dashboard using HCI principles for engagement, with guided question paths, streak tracking, achievements, rewards, leaderboards, profile customization, and daily challenge flows.',
+        readMoreText: [
+          'Built a Duolingo-inspired QA response dashboard using HCI principles for engagement to motivate users to complete assigned question-answering tasks.',
+          'Implemented guided question paths, daily challenge flows, streak tracking, achievements, rewards, leaderboards, profile customization, and an in-app shop experience.',
+          'Integrated the dashboard with user-specific QA assignment data, completion state, reward claiming, cosmetic selection, and answer submission flows to create a responsive, interactive experience for tracking progress and encouraging repeated participation.',
+        ],
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F6f5d69eba3c14ae9a378ea4671231876',
+        alt: 'Gamified answer collection and engagement dashboard',
+        links: [],
+      },
+      {
+        title: 'WhatsApp Question-Answer Routing and Response Backend',
+        summary:
+          'Built a Flask-based WhatsApp backend that manages participant QA workflows through Meta WhatsApp webhooks, handling assignment delivery, text/audio answer intake, scoring, reminders, streaks, badges, and reward logic backed by Supabase/Postgres.',
+        readMoreText: [
+          'Built a Flask backend for a WhatsApp-based QA collection system using Meta’s WhatsApp webhook and Graph API. Designed a provider-separated architecture where WhatsApp transport, webhook security, and outbound messaging are isolated from the core participant workflow.',
+          'Implemented participant session management, QA assignment selection, batch continuation, incomplete assignment recovery, text and audio response handling, transcription integration, keyword and multiple-choice scoring, expert-review flagging, and persistent event logging in Supabase/Postgres.',
+          'Added engagement mechanics including reminders, streak updates, badge awards, currency rewards, batch-completion bonuses, and adaptive batch-size nudges to improve participant completion and retention.',
+        ],
+        image:
+          'https://cdbuilder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fcceb872672d844aba4a8a0dc0c717754',
+        alt: 'WhatsApp question-answer routing backend project',
+        links: [],
+      },
+      {
+        title: 'Bible Translation QA Preparation and Assessment Pipeline',
+        summary:
+          'Built an LLM-assisted Python pipeline that converts Bible translation Q/A data into cleaner, shorter, assessment-ready records supporting both open-answer and multiple-choice formats.',
+        readMoreText: [
+          'Built an AI-assisted Bible QA processing system using Python, LangChain, OpenAI APIs, Pydantic, NLTK, scikit-learn, and JSON-based data pipelines.',
+          'The project uses LangChain to orchestrate multi-step LLM workflows, OpenAI chat models for scoring, rewriting, filtering, and multiple-choice conversion, and OpenAI embeddings with cosine similarity to detect near-duplicate questions. Pydantic provides structured schemas for reliable LLM outputs, while NLTK and WordNet support keyword extraction, lemmatization, and lexical analysis.',
+          'The pipeline processes UW Bible translation Q/A metadata into structured JSON outputs, preserving source traceability while adding assessment metadata, difficulty labels, answer keywords, and format variants such as open-answer and multiple-choice questions.',
+        ],
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fe62c46fa1fe042ea864c5016580609d5',
+        alt: 'Bible translation QA preparation and assessment pipeline',
+        links: [
+          { label: 'GitHub', href: 'https://github.com/AnthonyBatt/ETEN-Bible-translation-project', icon: 'github' },
+        ],
+      },
+      {
+        title: 'Cross-Platform Spotify and YouTube Music Playlist Conversion System',
+        summary:
+          'Built a full-stack playlist migration tool that converts playlists between Spotify, YouTube, and YouTube Music using a React frontend, Flask backend, OAuth authentication, streaming progress updates, and API integrations with Spotify, Google/YouTube, and ytmusicapi.',
+        readMoreText: [
+          'Developed a full-stack playlist conversion platform that supports bidirectional migration between Spotify and YouTube/YouTube Music. The React 19 frontend can run both as a local web app and as a Chrome/Edge browser extension injected into Spotify Web Player and YouTube Music. The UI handles OAuth login flows, playlist selection, conversion direction, destination playlist options, and real-time conversion progress.',
+          'The Python backend uses Flask, Flask-CORS, and Requests to expose REST and streaming endpoints for playlist import/export workflows. It integrates with the Spotify Web API for playlist creation, track search, liked songs access, and track insertion, while Google API clients and ytmusicapi provide YouTube and YouTube Music playlist access. It also handles Spotify and Google OAuth, token persistence, credential refresh, and extension-compatible authentication.',
+          'Playlist parsing and matching services normalize pasted or imported track lists into canonical Artist - Title records, combining rule-based parsing with optional LLM-assisted cleanup through local Ollama models or OpenAI Chat Completions. Additional Playwright tooling captures YouTube Music browser headers when cookie-based access is needed.',
+        ],
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fd67941ed8c464b02821d9b9654348805',
+        alt: 'Spotify and YouTube Music playlist conversion system',
+        links: [
+          { label: 'GitHub', href: 'https://github.com/louiscao669/Playlist_Converter', icon: 'github' },
+        ],
+      },
+      {
+        title: 'Translation Quality Proxy Validation and Evaluation Framework with Small Language Models',
+        summary:
+          'Built an end-to-end evaluation framework to test whether small-language-model question-answering accuracy can serve as a proxy for Bible translation quality, demonstrating that the QA proxy measures meaning preservation rather than fluency.',
+        readMoreText: [
+          'Designed and implemented a multi-stage Python evaluation pipeline that translates QA items into a decanonicalized Chinese stand-in language, protects canonical entities via token masking, generates answers from verse-windowed context using ability-tiered answer models, back-translates open responses, and scores them against gold English answers. Per-stage caching and force-rerun flags support reproducible experiment iteration.',
+          'Manufactured the translation-quality axis with Hugging Face Transformers and PyTorch, running NLLB-200-1.3B with configurable dropout for controlled degradation alongside mBART-50 and Helsinki-NLP OPUS baselines. The respondent-ability axis uses Ollama-hosted quantized models—including Llama 3.2 1B, Qwen 2.5 1.5B, and Qwen 3 1.7B—while the OpenAI API supports answer scoring, synthetic defect-bank generation, and MQM-style error annotation.',
+          'A suite of roughly thirty argparse CLI scripts generates variants across eight defect families, performs MQM scoring with regex-based verse alignment, compares models, and aggregates results. Experiments produce structured JSON/CSV grids spanning translation method, answer model, chapter, defect type, and dose, rendered as Matplotlib visualizations and auto-generated PowerPoint reports.',
+        ],
+        alt: 'Translation quality proxy validation framework',
+        links: [],
+      },
+      {
+        title: 'Causal Inference Pipeline for Smoking–Lung Cancer Risk',
+        summary:
+          'My high school research project estimated the causal effect of smoking on lung cancer from observational patient data using backdoor adjustment, front-door adjustment, and counterfactual analysis.',
+        readMoreText: [
+          'Built on Judea Pearl’s structural causal model framework—directed acyclic graphs, the do-operator, and do-calculus—the project models smoking, alcohol use, fatigue, occupational hazard, passive smoking, chronic lung disease, and lung cancer. The graph encodes which factors confound smoking and which mediate its path to cancer.',
+          'Applied three identification strategies. Backdoor adjustment conditions on observed confounders to block spurious paths between smoking and cancer. Front-door adjustment recovers the causal effect through a mediator even when unobserved confounders exist between smoking and cancer. Counterfactual analysis moves from population estimates to the individual level, estimating how a specific patient’s cancer risk would change under different smoking habits.',
+          'The patient-level observational data requires causal analysis rather than plain regression because correlation cannot separate smoking’s effect from its confounders. The Python workflow uses pandas and NumPy for data handling and conditional-probability tables, with backdoor and front-door adjustment formulas expressed through pgmpy.',
+        ],
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F8b265a82002749c385d0601f5db39626',
+        alt: 'Causal inference analysis of smoking and lung cancer risk',
+        paper: {
+          label: 'Research paper',
+          href: 'https://www.regate.net/publication/382604710_Effect_of_smoking_on_lung_cancer_A_causal_inference_approach',
+        },
+        links: [],
+      },
+      {
+        title: 'Generative Persona and Ad-Auditing Pipeline Development',
+        summary:
+          'Generated 200 diverse persona descriptions and supervised an end-to-end pipeline that expanded personas into schedules and browsing histories, modified Google My Ad Center attributes, and validated the resulting advertising experiences.',
+        readMoreText: [
+          'Developed persona-generation workflows using Python, GPT-4o, LangChain few-shot prompting, Pydantic structured-output validation, and Sentence Transformers for similarity-based example selection. Supervised the downstream generation of schedules and browsing histories and refined prompts to improve consistency and realism.',
+          'Oversaw a Node.js/Puppeteer automation workflow that translated persona attributes—including age, gender, income, education, employment, homeownership, and parental status—into Google Account and My Ad Center settings.',
+          'Validated modifications through automated Chrome sessions, SQLite-based browsing-history injection, ad-iframe detection, and Sharp-powered screenshot processing.',
+        ],
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F43e52369522642258ae2b5e2f1092c51',
+        alt: 'Generative persona and advertising audit pipeline',
+        links: [
+          { label: 'GitHub', href: 'https://github.com/louiscao669/AI-Project-1-ChaoRan-', icon: 'github' },
+        ],
+      },
+      {
+        title: 'Gomoku AI Self-Play Training and Neural Search Pipeline',
+        summary:
+          'Developed an AlphaZero-inspired Gomoku AI that combines Monte Carlo Tree Search with a residual policy-value neural network, trained through iterative self-play and evaluated against heuristic opponents.',
+        readMoreText: [
+          'Built in Python using PyTorch, NumPy, and Gymnasium. Implemented a residual CNN with policy and value heads, Monte Carlo Tree Search move selection, experience replay, Dirichlet exploration, and checkpointed self-play training.',
+          'Added heuristic warm-start policies, rule-based evaluation, Matplotlib game visualization, and hardware acceleration across CUDA, Apple Metal (MPS), and CPU.',
+        ],
+        image:
+          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fd99d17f0caec4a06b387ea617228d9d0',
+        alt: 'Gomoku AI self-play and neural search pipeline',
+        links: [
+          { label: 'GitHub', href: 'https://github.com/louiscao669/ai_gomoku', icon: 'github' },
+        ],
+      },
     ],
   },
 
