@@ -1,3 +1,23 @@
+import meetingAssistantImage from '../assets/projects/meeting-assistant.webp'
+import qaAnalyticImage from '../assets/projects/qa_analytic.webp'
+import predictionMarketImage from '../assets/projects/prediction-market.webp'
+import fileReplicationImage from '../assets/projects/file-replication.webp'
+import engagementDashboardImage from '../assets/projects/engagement-dashboard.webp'
+import whatsappBackendImage from '../assets/projects/whatsapp-backend.webp'
+import bibleQaPipelineImage from '../assets/projects/bible-qa-pipeline.webp'
+import playlistConverterImage from '../assets/projects/spotify_new.webp'
+import causalInferenceImage from '../assets/projects/causal-inference.webp'
+import personaAdAuditingImage from '../assets/projects/persona-ad-auditing.webp'
+import gomokuAiImage from '../assets/projects/gomoku-ai.webp'
+import servicePhoto from '../assets/interests/service.webp'
+import fellowshipPhoto from '../assets/interests/fellowship.webp'
+import churchPhoto from '../assets/interests/church.webp'
+import soccerPhoto from '../assets/interests/soccer.webp'
+import footballPhoto from '../assets/interests/football.webp'
+import performancePhoto from '../assets/interests/performance.webp'
+import hikingPhoto from '../assets/interests/hiking.webp'
+import basketballPhoto from '../assets/interests/basketball.webp'
+
 /**
  * Single source of truth: résumé copy + data for the interactive strips (cards, carousel, menu).
  */
@@ -238,8 +258,7 @@ export const site = {
         title: 'Accessible meeting app (Hackathon)',
         summary:
           '1st place at ND Hackathon: real-time speech-to-text, LLM responses, and mind maps for accessible meetings.',
-        image:
-          'https://i.postimg.cc/pV78fdDR/Screenshot-2026-06-21-at-5-31-05-PM.png',
+        image: meetingAssistantImage,
         alt: 'Accessible meeting app interface screenshot',
         links: [
           'https://github.com/Leoreoreo/Meeting_Assistant',
@@ -254,7 +273,7 @@ export const site = {
           'Deployed 12 FastAPI services across EC2 behind a load balancer, distributing workloads by assigning each server a dedicated task type. Built a read-optimized MySQL cluster with one leader and four read replicas, including automatic leader failover. Deployed a Redis cache to reduce database load and read latency.',
           'Built a React/Vite frontend for sign-in, user dashboards, organization management, event dashboards, and market trading pages. Architected core business backend for users, organizations, events, markets, permissions, token balances, transactions, payouts, quotes, and analytics, along with seed data and benchmark scripts.',
         ],
-        image: 'https://i.postimg.cc/0Qnn513j/Screenshot-2026-06-21-at-5-28-04-PM.png',
+        image: predictionMarketImage,
         alt: 'Prediction market platform interface screenshot',
         paper: {
           label: 'Project paper',
@@ -273,7 +292,7 @@ export const site = {
           'I implemented a persistent, crash-recoverable hash-table store using disk-backed data with atomic checkpoint and log file. I also designed an event-driven server using epoll to concurrently serve and download files across many simultaneous connections with dynamic peer discovery through a network name service.',
           'Further, I designed transparent fault tolerance via idempotent RPC operations and exponential-backoff retry, along with a randomized, load-balanced download policy to eliminate single points of failure.',
         ],
-        image: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fec9cdb4b851c46579175de39d08275c9',
+        image: fileReplicationImage,
         alt: 'Prediction market platform interface screenshot',
         links: [
           { label: 'GitHub', href: 'https://github.com/louiscao669/Polaris', icon: 'github' },
@@ -289,7 +308,8 @@ export const site = {
           'Functionally, admins import questions from JSON, manage QA items with full CRUD, per-item stats, responses, assignments, and open/MCQ/TF types. They can also view an analytics dashboard aggregating participant and response counts, average correctness, flag rates, and coverage against targets.',
           'Experts record per-language question audio and review flagged responses. All participant audio and recordings are served through an authenticated media proxy, and data can be exported as responses CSV or zipped audio archives.',
         ],
-        alt: 'QA Analytical Platform project preview',
+        image: qaAnalyticImage,
+        alt: 'QA Analytical Platform admin analytics dashboard',
         links: [],
       },
       {
@@ -301,8 +321,7 @@ export const site = {
           'Implemented guided question paths, daily challenge flows, streak tracking, achievements, rewards, leaderboards, profile customization, and an in-app shop experience.',
           'Integrated the dashboard with user-specific QA assignment data, completion state, reward claiming, cosmetic selection, and answer submission flows to create a responsive, interactive experience for tracking progress and encouraging repeated participation.',
         ],
-        image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F6f5d69eba3c14ae9a378ea4671231876',
+        image: engagementDashboardImage,
         alt: 'Gamified answer collection and engagement dashboard',
         links: [],
       },
@@ -315,8 +334,7 @@ export const site = {
           'Implemented participant session management, QA assignment selection, batch continuation, incomplete assignment recovery, text and audio response handling, transcription integration, keyword and multiple-choice scoring, expert-review flagging, and persistent event logging in Supabase/Postgres.',
           'Added engagement mechanics including reminders, streak updates, badge awards, currency rewards, batch-completion bonuses, and adaptive batch-size nudges to improve participant completion and retention.',
         ],
-        image:
-          'https://cdbuilder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fcceb872672d844aba4a8a0dc0c717754',
+        image: whatsappBackendImage,
         alt: 'WhatsApp question-answer routing backend project',
         links: [],
       },
@@ -329,8 +347,7 @@ export const site = {
           'The project uses LangChain to orchestrate multi-step LLM workflows, OpenAI chat models for scoring, rewriting, filtering, and multiple-choice conversion, and OpenAI embeddings with cosine similarity to detect near-duplicate questions. Pydantic provides structured schemas for reliable LLM outputs, while NLTK and WordNet support keyword extraction, lemmatization, and lexical analysis.',
           'The pipeline processes UW Bible translation Q/A metadata into structured JSON outputs, preserving source traceability while adding assessment metadata, difficulty labels, answer keywords, and format variants such as open-answer and multiple-choice questions.',
         ],
-        image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fe62c46fa1fe042ea864c5016580609d5',
+        image: bibleQaPipelineImage,
         alt: 'Bible translation QA preparation and assessment pipeline',
         links: [
           { label: 'GitHub', href: 'https://github.com/AnthonyBatt/ETEN-Bible-translation-project', icon: 'github' },
@@ -345,8 +362,7 @@ export const site = {
           'The Python backend uses Flask, Flask-CORS, and Requests to expose REST and streaming endpoints for playlist import/export workflows. It integrates with the Spotify Web API for playlist creation, track search, liked songs access, and track insertion, while Google API clients and ytmusicapi provide YouTube and YouTube Music playlist access. It also handles Spotify and Google OAuth, token persistence, credential refresh, and extension-compatible authentication.',
           'Playlist parsing and matching services normalize pasted or imported track lists into canonical Artist - Title records, combining rule-based parsing with optional LLM-assisted cleanup through local Ollama models or OpenAI Chat Completions. Additional Playwright tooling captures YouTube Music browser headers when cookie-based access is needed.',
         ],
-        image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fd67941ed8c464b02821d9b9654348805',
+        image: playlistConverterImage,
         alt: 'Spotify and YouTube Music playlist conversion system',
         links: [
           { label: 'GitHub', href: 'https://github.com/louiscao669/Playlist_Converter', icon: 'github' },
@@ -365,6 +381,12 @@ export const site = {
         links: [],
       },
       {
+        title: 'Human Study Platform',
+        summary:
+          'The pilot platform presents translated passages and comprehension questions, collects participant answers, and tracks study progress and response times. It captures indicators of attention—including page visibility, window focus, and how long the passage remains onscreen—to help researchers interpret responses alongside participant engagement.',
+        links: [],
+      },
+      {
         title: 'Causal Inference Pipeline for Smoking–Lung Cancer Risk',
         summary:
           'My high school research project estimated the causal effect of smoking on lung cancer from observational patient data using backdoor adjustment, front-door adjustment, and counterfactual analysis.',
@@ -373,8 +395,7 @@ export const site = {
           'Applied three identification strategies. Backdoor adjustment conditions on observed confounders to block spurious paths between smoking and cancer. Front-door adjustment recovers the causal effect through a mediator even when unobserved confounders exist between smoking and cancer. Counterfactual analysis moves from population estimates to the individual level, estimating how a specific patient’s cancer risk would change under different smoking habits.',
           'The patient-level observational data requires causal analysis rather than plain regression because correlation cannot separate smoking’s effect from its confounders. The Python workflow uses pandas and NumPy for data handling and conditional-probability tables, with backdoor and front-door adjustment formulas expressed through pgmpy.',
         ],
-        image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F8b265a82002749c385d0601f5db39626',
+        image: causalInferenceImage,
         alt: 'Causal inference analysis of smoking and lung cancer risk',
         paper: {
           label: 'Research paper',
@@ -391,8 +412,7 @@ export const site = {
           'Oversaw a Node.js/Puppeteer automation workflow that translated persona attributes—including age, gender, income, education, employment, homeownership, and parental status—into Google Account and My Ad Center settings.',
           'Validated modifications through automated Chrome sessions, SQLite-based browsing-history injection, ad-iframe detection, and Sharp-powered screenshot processing.',
         ],
-        image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F43e52369522642258ae2b5e2f1092c51',
+        image: personaAdAuditingImage,
         alt: 'Generative persona and advertising audit pipeline',
         links: [
           { label: 'GitHub', href: 'https://github.com/louiscao669/AI-Project-1-ChaoRan-', icon: 'github' },
@@ -406,8 +426,7 @@ export const site = {
           'Built in Python using PyTorch, NumPy, and Gymnasium. Implemented a residual CNN with policy and value heads, Monte Carlo Tree Search move selection, experience replay, Dirichlet exploration, and checkpointed self-play training.',
           'Added heuristic warm-start policies, rule-based evaluation, Matplotlib game visualization, and hardware acceleration across CUDA, Apple Metal (MPS), and CPU.',
         ],
-        image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2Fd99d17f0caec4a06b387ea617228d9d0',
+        image: gomokuAiImage,
         alt: 'Gomoku AI self-play and neural search pipeline',
         links: [
           { label: 'GitHub', href: 'https://github.com/louiscao669/ai_gomoku', icon: 'github' },
@@ -438,7 +457,7 @@ export const site = {
     items: [
       {
         image:
-          'https://i.postimg.cc/tCMxkXNV/IMG-8921.jpg',
+          servicePhoto,
         link: 'https://i.postimg.cc/tCMxkXNV/IMG-8921.jpg',
         title: 'Service',
         description: 'Spent 1500+ hours serving communities in South Bend and Philadelphia',
@@ -447,48 +466,48 @@ export const site = {
       },
       {
         image:
-          'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
+          fellowshipPhoto,
         link: 'https://i.postimg.cc/y8wXhJ8N/24ec6b69849e52b6016aa81aaad91a22.jpg',
         title: 'Fellowship',
         description: 'Time with my fellowhip that I spend 5+ hours a week with',
       },
       {
         image:
-          'https://i.postimg.cc/7Yd57Kqq/a01973f2a268fced3544127d59fcabd0.jpg',
+          churchPhoto,
         link: 'https://i.postimg.cc/7Yd57Kqq/a01973f2a268fced3544127d59fcabd0.jpg',
         title: 'Church',
         description: 'Staying grounded in my faith and serving my church',
       },
       {
         image:
-          'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
+          soccerPhoto,
         link: 'https://i.postimg.cc/597PY2Lx/IMG-0896-2.jpg',
         description: 'My favorite sport since I was 7 has taught me teamwork, concentration under stress, and courage...',
         title: 'Soccer',
       },
       {
         image:
-          'https://i.postimg.cc/3xj3R1NM/IMG-6775.jpg',
+          footballPhoto,
         link: 'https://i.postimg.cc/3xj3R1NM/IMG-6775.jpg',
         title: 'Notre Dame Football',
       },
       {
         image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F0d88d53327eb415b829245f89e174361',
+          performancePhoto,
         link: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F0d88d53327eb415b829245f89e174361',
         title: 'Performance',
         description: 'Performing in Notre Dame CSSA spring gala',
       },
       {
         image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F719f41c85513411bb6b767b09a6c6aac',
+          hikingPhoto,
         link: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F719f41c85513411bb6b767b09a6c6aac',
         title: 'Hiking',
         imageRotation: -90,
       },
       {
         image:
-          'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F997df4c0f8714583b4d14bad21d3f6ad',
+          basketballPhoto,
         link: 'https://cdn.builder.io/api/v1/image/assets%2F049e22941f084988b8dad46dae79b4c5%2F997df4c0f8714583b4d14bad21d3f6ad',
         title: 'Basketball',
       }

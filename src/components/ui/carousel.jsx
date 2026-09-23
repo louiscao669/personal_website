@@ -79,7 +79,8 @@ const Slide = ({ slide, index, current, handleSlideClick }) => {
               : undefined
           }
           onLoad={imageLoaded}
-          loading="eager"
+          loading={Math.abs(current - index) <= 1 ? 'eager' : 'lazy'}
+          fetchPriority={isCurrent ? 'high' : 'low'}
           decoding="async"
         />
       </div>

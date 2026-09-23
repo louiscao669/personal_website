@@ -45,7 +45,7 @@ export default function ProjectGridCard({
 
   const card = (
     <article
-      className={`project-grid-card ${className}`.trim()}
+      className={`project-grid-card${image ? '' : ' project-grid-card--text-only'} ${className}`.trim()}
       role={interactive ? 'button' : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={interactive ? onOpen : undefined}
@@ -60,8 +60,8 @@ export default function ProjectGridCard({
           : undefined
       }
     >
-      <div className="project-grid-card__media">
-        {image ? (
+      {image ? (
+        <div className="project-grid-card__media">
           <img
             className="project-grid-card__photo"
             src={image}
@@ -69,10 +69,8 @@ export default function ProjectGridCard({
             loading="lazy"
             decoding="async"
           />
-        ) : (
-          <div className="project-grid-card__photo-placeholder" aria-hidden />
-        )}
-      </div>
+        </div>
+      ) : null}
       <div className="project-grid-card__body">
         <h3 className="project-grid-card__title">{title}</h3>
         {summary ? <p className="project-grid-card__summary">{summary}</p> : null}
